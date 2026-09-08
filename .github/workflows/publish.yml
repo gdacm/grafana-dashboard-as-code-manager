@@ -44,4 +44,4 @@ jobs:
             fi
           fi
           echo "GDM_TEST_NAME=${GDM_TEST_NAME}"
-          GDM_API_URL="${{ vars.HOST_GRA12 }}" GDM_API_TOKEN="${{ secrets.TOKEN_GRA }}" GDM_INCLUDE="gra" yarn start
+          GDM_API_URL="${{ vars.HOST_GRA }}" GDM_API_TOKEN="${{ secrets.TOKEN_GRA }}" GDM_INCLUDE="gra" yarn start
