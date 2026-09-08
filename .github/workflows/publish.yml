@@ -27,15 +27,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Inject Yarn npm scope auth at runtime
-        run: |
-          cat << 'EOF' >> .yarnrc.yml
-          npmScopes:
-            gdacm:
-              npmAlwaysAuth: true
-              npmAuthToken: "${NPM_TOKEN:-}"
-          EOF
-
       - name: Install dependencies
         run: yarn install --immutable
 

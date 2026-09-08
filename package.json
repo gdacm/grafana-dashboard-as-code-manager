@@ -26,7 +26,7 @@
     "test:run": "yarn turbo run test:run",
     "test:watch": "yarn turbo run test:watch",
     "test": "yarn test:watch",
-    "publishAll": "yarn workspaces foreach -A --topological --no-private  npm publish --tolerate-republish",
+    "publishAll": "yarn workspaces foreach -A --topological --no-private  npm publish --access public --tolerate-republish",
     "clean:local": "rm -rf dist .turbo",
     "clean:recursive": "yarn workspaces foreach -A --topological run clean:local",
     "clean": "yarn clean:recursive && yarn",
