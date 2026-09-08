@@ -1,6 +1,6 @@
 {
   "name": "@gdacm/grafana-items",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "gissehel",
   "type": "module",
   "module": "./dist/index.js",
