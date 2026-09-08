@@ -1,6 +1,6 @@
 {
   "name": "@gdacm/base-types",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "gissehel",
   "type": "module",
   "types": "./dist/index.d.ts",
