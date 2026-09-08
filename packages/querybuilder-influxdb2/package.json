@@ -1,6 +1,6 @@
 {
   "name": "@gdacm/querybuilder-influxdb2",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "gissehel",
   "type": "module",
   "module": "./dist/index.js",
