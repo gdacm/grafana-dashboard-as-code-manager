@@ -1,0 +1,41 @@
+{
+  "name": "@gdacm/grafana-items",
+  "version": "0.1.0",
+  "author": "gissehel",
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean:local": "rm -rf dist .turbo",
+    "dev": "vite build --watch",
+    "types:watch": "chokidar \"src/**/*.js\" -c \"node updateTypes.js\" --initial",
+    "plop": "plop",
+    "build:js": "vite build",
+    "build:types": "yarn update",
+    "build": "yarn build:js && yarn build:types",
+    "test": "yarn test:watch",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "update": "node updateTypes.js"
+  },
+  "dependencies": {
+    "@gdacm/base-types": "workspace:^"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "plop": "^4.0.5",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.10"
+  }
+}

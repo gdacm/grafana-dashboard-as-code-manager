@@ -1,0 +1,17 @@
+{
+  "name": "sample-js",
+  "private": true,
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "gissehel",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@gdacm/base-types": "workspace:^",
+    "@gdacm/dashboard-manager": "workspace:^",
+    "@gdacm/grafana-items": "workspace:^"
+  }
+}

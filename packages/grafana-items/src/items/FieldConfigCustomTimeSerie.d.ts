@@ -1,0 +1,54 @@
+import { FieldConfigCustom } from "./FieldConfigCustom.js";
+import { ScaleDistribution } from "./ScaleDistribution.js";
+import { HideFrom } from "./HideFrom.js";
+import { LineStyle } from "./LineStyle.js";
+import { Stacking } from "./Stacking.js";
+import { ThresholdStyle } from "./ThresholdStyle.js";
+
+import type { GenericMetaOptions } from "@gdacm/base-types";
+
+export declare class FieldConfigCustomTimeSerie extends FieldConfigCustom {
+    setAxisBorderShow(axisBorderShow: Boolean): this;
+    setAxisCenteredZero(axisCenteredZero: Boolean): this;
+    setAxisColorMode(axisColorMode: String): this;
+    setAxisGridShow(axisGridShow: Boolean): this;
+    setAxisLabel(axisLabel: String): this;
+    setAxisPlacement(axisPlacement: String): this;
+    setAxisSoftMax(axisSoftMax: Number): this;
+    setAxisSoftMin(axisSoftMin: Number): this;
+    setAxisWidth(axisWidth: Number): this;
+    setScaleDistribution(scaleDistribution: ScaleDistribution): this;
+    withScaleDistribution(onWith: (item: ScaleDistribution) => void): this;
+    get scaleDistribution(): ScaleDistribution;
+    setBarAlignment(barAlignment: Number): this;
+    setBarMaxWidth(barMaxWidth: Number): this;
+    setBarWidthFactor(barWidthFactor: Number): this;
+    setDrawStyle(drawStyle: String): this;
+    setFillBelowTo(fillBelowTo: String): this;
+    setFillColor(fillColor: String): this;
+    setFillOpacity(fillOpacity: Number): this;
+    setGradientMode(gradientMode: String): this;
+    setHideFrom(hideFrom: HideFrom): this;
+    withHideFrom(onWith: (item: HideFrom) => void): this;
+    get hideFrom(): HideFrom;
+    setInsertNulls(insertNulls: Boolean): this;
+    setLineInterpolation(lineInterpolation: String): this;
+    setLineStyle(lineStyle: LineStyle): this;
+    withLineStyle(onWith: (item: LineStyle) => void): this;
+    get lineStyle(): LineStyle;
+    setLineStyleFill(fill: string): this;
+    setLineWidth(lineWidth: Number): this;
+    setPointColor(pointColor: String): this;
+    setPointSize(pointSize: Number): this;
+    setPointSymbol(pointSymbol: String): this;
+    setShowPoints(showPoints: String): this;
+    setShowValues(showValues: Boolean): this;
+    setSpanNulls(spanNulls: Boolean): this;
+    setStacking(stacking: Stacking): this;
+    withStacking(onWith: (item: Stacking) => void): this;
+    get stacking(): Stacking;
+    setThresholdsStyle(thresholdsStyle: ThresholdStyle): this;
+    withThresholdsStyle(onWith: (item: ThresholdStyle) => void): this;
+    get thresholdsStyle(): ThresholdStyle;
+    setThresholdsStyleMode(mode: string): this;
+}

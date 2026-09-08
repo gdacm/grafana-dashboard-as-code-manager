@@ -1,0 +1,31 @@
+{
+    "tasks": {
+        "build": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "types:watch": {
+            "cache": false,
+            "persistent": true
+        },
+        "test:run": {
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": []
+        },
+        "test:watch": {
+            "cache": false,
+            "persistent": true
+        }
+    },
+    "concurrency": "20"
+}

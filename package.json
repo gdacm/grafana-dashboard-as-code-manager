@@ -1,0 +1,53 @@
+{
+  "name": "grafana-dashboard-as-code-manager",
+  "private": true,
+  "version": "0.1.0",
+  "author": "gissehel",
+  "type": "module",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "yarn turbo run build",
+    "dev:setup": "yarn turbo run build",
+    "dev:watch": "yarn turbo run dev types:watch",
+    "dev": "yarn dev:setup && yarn dev:watch",
+    "start": "yarn workspaces foreach -A  --topological run start",
+    "update": "yarn workspaces foreach -A --topological run update",
+    "release:patch": "yarn version patch --all",
+    "release:minor": "yarn version minor --all",
+    "release:major": "yarn version major --all",
+    "version:get": "node -p \"require('./package.json').version\"",
+    "release:tag": "git add . && git commit -m \"Release $(yarn version:get)\" && git tag v$(yarn version:get)",
+    "release:push": "git push && git push --tags",
+    "release": "yarn release:patch && yarn release:tag && yarn release:push",
+    "test:run": "yarn turbo run test:run",
+    "test:watch": "yarn turbo run test:watch",
+    "test": "yarn test:watch",
+    "publishAll": "yarn workspaces foreach -A --topological --no-private  npm publish --tolerate-republish",
+    "clean:local": "rm -rf dist .turbo",
+    "clean:recursive": "yarn workspaces foreach -A --topological run clean:local",
+    "clean": "yarn clean:recursive && yarn",
+    "pub": "yarn clean && yarn build && yarn test:run && yarn release && yarn publishAll",
+    "bt": "yarn workspace @gdacm/base-types",
+    "dm": "yarn workspace @gdacm/dashboard-manager",
+    "gi": "yarn workspace @gdacm/grafana-items",
+    "qb-influxdb2": "yarn workspace @gdacm/querybuilder-influxdb2",
+    "qb-uql": "yarn workspace @gdacm/querybuilder-uql",
+    "js": "yarn workspace sample-js",
+    "ts": "yarn workspace sample-ts",
+    "tsgi": "yarn workspace sample-ts-generic-items",
+    "sand": "yarn workspace gdacm-sandbox",
+    "gen-item": "yarn gi plop",
+    "bs": "yarn build && yarn start"
+  },
+  "devDependencies": {
+    "plop": "^4.0.5",
+    "turbo": "^2.10.11",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.0"
+  },
+  "packageManager": "yarn@4.18.0"
+}

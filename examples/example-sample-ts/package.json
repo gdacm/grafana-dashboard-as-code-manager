@@ -1,0 +1,21 @@
+{
+  "name": "sample-ts",
+  "private": true,
+  "version": "0.1.0",
+  "main": "index.ts",
+  "author": "gissehel",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@gdacm/base-types": "workspace:^",
+    "@gdacm/dashboard-manager": "workspace:^",
+    "@gdacm/grafana-items": "workspace:^"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

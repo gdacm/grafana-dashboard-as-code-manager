@@ -1,0 +1,16 @@
+import { describe, it, expect } from 'vitest';
+import { {{pascalCase name}} } from './{{pascalCase name}}.js';
+
+describe('{{pascalCase name}}', () => {
+    const defaultMetaOptions = {
+        text: 'Test options'
+    };
+
+    it('should create a {{pascalCase name}}', () => {
+        const {{camelCase name}} = new {{pascalCase name}}(defaultMetaOptions)
+        
+        expect({{camelCase name}}).toBeInstanceOf({{pascalCase name}});
+        expect({{camelCase name}}.asJson()).toEqual({
+        });
+    });
+});

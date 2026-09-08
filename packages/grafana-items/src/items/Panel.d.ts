@@ -1,0 +1,57 @@
+import { GrafanaItem } from "./GrafanaItem.js";
+import { Datasource } from "./Datasource.js";
+import { FieldConfig } from "./FieldConfig.js";
+import { GridPos } from "./GridPos.js";
+import { Link } from "./Link.js";
+import { Target } from "./Target.js";
+import { DataTransformation } from "./DataTransformation.js";
+
+import type { GenericMetaOptions } from "@gdacm/base-types";
+
+export declare class Panel extends GrafanaItem {
+    setCacheTimeout(cacheTimeout: String): this;
+    setDatasource(datasource: Datasource): this;
+    withDatasource(onWith: (item: Datasource) => void): this;
+    get datasource(): Datasource;
+    setDescription(description: String): this;
+    setFieldConfig(fieldConfig: FieldConfig): this;
+    withFieldConfig(onWith: (item: FieldConfig) => void): this;
+    get fieldConfig(): FieldConfig;
+    setGridPos(gridPos: GridPos): this;
+    setNewGridPos(onNewCreated: ((item: GridPos) => GridPos) | undefined): this;
+    withGridPos(onWith: (item: GridPos) => void): this;
+    get gridPos(): GridPos;
+    setPos(x: number, y: number, w: number, h: number): this;
+    setHideTimeOverride(hideTimeOverride: Boolean): this;
+    setId(id: Number): this;
+    setInterval(interval: String): this;
+    initLinks(): this;
+    get links(): Link[];
+    addLink(link: Link): this;
+    addNewLink(onNewCreated: (item: Link) => Link): this;
+    withLinks(onWith: (links: Link[]) => void): this;
+    setMaxDataPoints(maxDataPoints: Number): this;
+    setMaxPerRow(maxPerRow: Number): this;
+    setOptions(options: Object): this;
+    withOptions(onWith: (item: Object) => void): this;
+    get options(): Object;
+    setPluginVersion(pluginVersion: String): this;
+    setQueryCachingTTL(queryCachingTTL: Number): this;
+    setRepeat(repeat: String): this;
+    setRepeatDirection(repeatDirection: String): this;
+    initTargets(): this;
+    get targets(): Target[];
+    addTarget(target: Target): this;
+    addNewTarget(onNewCreated: (item: Target) => Target): this;
+    withTargets(onWith: (targets: Target[]) => void): this;
+    addTargetWithParams(refId: string, query: string, datasource: Datasource): this;
+    setTimeFrom(timeFrom: String): this;
+    setTimeShift(timeShift: String): this;
+    initTransformations(): this;
+    get transformations(): DataTransformation[];
+    addTransformation(transformation: DataTransformation): this;
+    addNewTransformation(onNewCreated: (item: DataTransformation) => DataTransformation): this;
+    withTransformations(onWith: (transformations: DataTransformation[]) => void): this;
+    setType(type: String): this;
+    setTitle(title: String): this;
+}
