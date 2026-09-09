@@ -31,7 +31,7 @@ export class DashboardInfo {
          * @type {GenericMetaOptions} 
          */
         this._metaOptions = {};
-        /** @type {((uid: string, metaOption: DashboardMetaOptions) => Promise<GrafanaItem>)|undefined} */
+        /** @type {((uid: string, metaOptions: DashboardMetaOptions) => Promise<GrafanaItem>)|undefined} */
         this._dashboardGenerator = undefined;
     }
 
@@ -174,14 +174,14 @@ export class DashboardInfo {
     }
 
     /**
-     * @returns {((uid: string, metaOption: DashboardMetaOptions) => Promise<GrafanaItem>)|undefined}
+     * @returns {((uid: string, metaOptions: DashboardMetaOptions) => Promise<GrafanaItem>)|undefined}
      */
     get getDashboard() {
         return this._dashboardGenerator;
     }
 
     /**
-     * @param {((uid: string, metaOption: DashboardMetaOptions) => Promise<GrafanaItem>)|undefined} dashboardGenerator
+     * @param {((uid: string, metaOptions: DashboardMetaOptions) => Promise<GrafanaItem>)|undefined} dashboardGenerator
      * @returns {this}
      */
     setDashboardGenerator(dashboardGenerator) {
