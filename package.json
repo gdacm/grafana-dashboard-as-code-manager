@@ -1,7 +1,7 @@
 {
   "name": "grafana-dashboard-as-code-manager",
   "private": true,
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "gissehel",
   "type": "module",
   "license": "MIT",
