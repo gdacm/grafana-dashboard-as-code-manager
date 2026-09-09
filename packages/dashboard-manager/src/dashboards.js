@@ -14,10 +14,19 @@ import { getInfo } from "./info.js";
  */
 export const createDashboards = async (localFolders, outDir, infosCode, dashboardsInfos) => {
     const info = await getInfo(infosCode, localFolders);
-    const { projectName, projectRootVid, projectRootGrafanaFolder, projectVidPrefix } = info;
+    let { projectName, projectRootVid, projectRootGrafanaFolder, projectVidPrefix } = info;
     const dashboardManager = new DashboardManager();
-    if (!projectName || !projectRootVid || !projectRootGrafanaFolder) {
-        throw new Error(`Missing projectName or projectRootVid or projectRootGrafanaFolder in info`);
+    if (!projectRootVid && projectVidPrefix) {
+        projectRootVid = projectVidPrefix;
+    }
+    if (!projectVidPrefix && projectRootVid) {
+        projectVidPrefix = projectRootVid;
+    }
+    if (!projectRootGrafanaFolder || !projectRootVid) {
+        throw new Error(`Missing projectRootGrafanaFolder or projectRootVid in info`);
+    }
+    if (!projectName) {
+        projectName = projectRootVid;
     }
     dashboardManager.setupProject(projectName, projectRootVid, projectRootGrafanaFolder, projectVidPrefix, { info });
     dashboardManager.registerDashboards(
