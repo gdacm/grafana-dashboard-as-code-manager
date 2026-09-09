@@ -11,7 +11,7 @@ import { DashboardsInfo } from "./DashboardsInfo.js";
  *   rootGrafanaFolder: String|undefined,
  *   vidPrefix: String|undefined,
  *   metaOptions: GenericMetaOptions
- * }} DashboardProjectProperties<T>
+ * }} DashboardProjectProperties
  */
 
 export class DashboardProject {
@@ -120,7 +120,7 @@ export class DashboardProject {
     }
 
     get vidPrefix() {
-        return this._properties.vidPrefix || this.rootVid;
+        return this._properties.vidPrefix;
     }
 
     get metaOptions() {

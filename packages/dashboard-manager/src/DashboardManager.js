@@ -101,13 +101,8 @@ export class DashboardManager {
         const dashboardsToCreate = [];
         const { apiToken, apiUrl } = localProjectMetaOptions.info || {};
         const projectRootVid = projectDashboards.rootVid;
-        if (!projectRootVid) {
-            throw new Error(`No rootVid defined for project: ${projectName}`);
-        }
         let projectVidPrefix = projectDashboards.vidPrefix
         if (!projectVidPrefix) {
-            // Should never occurs as projectRootVid is not undefined, and vidPrefix should default to projectRootVid.
-            // If it fails here, it means a change has been made to the code that broke this assumption. Should rethink something here.
             throw new Error(`No vidPrefix defined for project: ${projectName}`);
         }
         let projectRootGrafanaFolder = projectDashboards.rootGrafanaFolder;
@@ -119,9 +114,9 @@ export class DashboardManager {
         foldersToCreate[projectVidPrefix] = {
             folderPath: projectFolderPath,
             name: projectRootGrafanaFolder,
-            parentVid: undefined,
+            parentVid: projectRootVid,
             sid: getSlug(projectRootGrafanaFolder),
-            vid: projectRootVid,
+            vid: projectVidPrefix,
         }
 
         if (testName) {
