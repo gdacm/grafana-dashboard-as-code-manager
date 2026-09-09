@@ -39,7 +39,7 @@
     "js": "yarn workspace sample-js",
     "ts": "yarn workspace sample-ts",
     "tsgi": "yarn workspace sample-ts-generic-items",
-    "sand": "yarn workspace gdacm-sandbox",
+    "jsnt": "yarn workspace sample-js-relax-check-no-types",
     "gen-item": "yarn gi plop",
     "bs": "yarn build && yarn start"
   },
