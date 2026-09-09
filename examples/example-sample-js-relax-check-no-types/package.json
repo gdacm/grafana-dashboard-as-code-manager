@@ -1,7 +1,7 @@
 {
   "name": "sample-js-relax-check-no-types",
   "private": true,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "index.js",
   "author": "gissehel",
   "type": "module",
