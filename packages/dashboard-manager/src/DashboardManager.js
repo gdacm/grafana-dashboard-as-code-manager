@@ -56,19 +56,19 @@ export class DashboardManager {
 
     /**
      * @param {string} projectName 
-     * @param {string} rootVid 
+     * @param {string|undefined} rootVid 
      * @param {string} rootGrafanaFolder 
-     * @param {string|undefined} vidPrefix
+     * @param {string} vidPrefix
      * @param {GenericMetaOptions} metaOptions 
      * @returns {this}
      */
     setupProject(projectName, rootVid, rootGrafanaFolder, vidPrefix, metaOptions) {
         const project = this._ensureProjectExists(projectName);
-        project.setRootVid(rootVid);
-        project.setRootGrafanaFolder(rootGrafanaFolder);
-        if (vidPrefix) {
-            project.setVidPrefix(vidPrefix);
+        if (rootVid) {
+            project.setRootVid(rootVid);
         }
+        project.setRootGrafanaFolder(rootGrafanaFolder);
+        project.setVidPrefix(vidPrefix);
         project.setMetaOptions(metaOptions);
         return this;
     }
