@@ -46,7 +46,9 @@ export const Dashboard = defineGrafanaItemClass('Dashboard', GrafanaItem)
         onDefault: (options) => new Templating(options),
     })
     .defineObject('time', TimeRange, {
-        onDefault: (options) => new TimeRange(options),
+        onDefault: (options) => new TimeRange(options)
+            // Range is mandatory for Grafana 12, or the dashboard crash at load time
+            .setRange('now-6h', 'now'),
     })
     .defineMethod('setTimeRange', '(from: string, to: string): this;', {
         /**
