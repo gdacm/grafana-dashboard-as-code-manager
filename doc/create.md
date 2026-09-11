@@ -316,3 +316,17 @@ But depending on your preferences, you might want to only generate official dash
 ## Summary
 
 You have now a project that allows you to manage Grafana dashboards as code, with predictable URLs and proper folder organization.
+
+You can find a project at the end of this tutorial at https://github.com/gdacm/tutorial-create-project
+
+### The dashboard structure created by this project
+
+![Dashboard structure](./images/01-Dashboards-list.jpg)
+
+### The published dashboard
+
+![Published dashboard](./images/02-Dashboard-published.jpg)
+
+### The preview dashboard
+
+![Preview dashboard](./images/03-Dashboard-preview.jpg)
