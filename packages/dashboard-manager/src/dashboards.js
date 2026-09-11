@@ -36,5 +36,5 @@ export const createDashboards = async (localFolders, outDir, infosCode, dashboar
         )
     );
 
-    await dashboardManager.generateDashboards(projectName, `${outDir}/${projectRootVid}`);
+    await dashboardManager.generateDashboards(projectName, `${outDir}/${projectVidPrefix}`);
 }
