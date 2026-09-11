@@ -16,17 +16,11 @@ export const createDashboards = async (localFolders, outDir, infosCode, dashboar
     const info = await getInfo(infosCode, localFolders);
     let { projectName, projectRootVid, projectRootGrafanaFolder, projectVidPrefix } = info;
     const dashboardManager = new DashboardManager();
-    if (!projectRootVid && projectVidPrefix) {
-        projectRootVid = projectVidPrefix;
-    }
-    if (!projectVidPrefix && projectRootVid) {
-        projectVidPrefix = projectRootVid;
-    }
-    if (!projectRootGrafanaFolder || !projectRootVid) {
-        throw new Error(`Missing projectRootGrafanaFolder or projectRootVid in info`);
+    if (!projectRootGrafanaFolder || !projectVidPrefix) {
+        throw new Error(`Missing projectRootGrafanaFolder or projectVidPrefix in info`);
     }
     if (!projectName) {
-        projectName = projectRootVid;
+        projectName = projectVidPrefix;
     }
     dashboardManager.setupProject(projectName, projectRootVid, projectRootGrafanaFolder, projectVidPrefix, { info });
     dashboardManager.registerDashboards(
