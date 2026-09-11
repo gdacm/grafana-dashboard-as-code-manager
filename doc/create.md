@@ -138,9 +138,9 @@ const getDashboard = async (uid: string, metaOptions: DashboardMetaOptions): Pro
                     options => options
                         .withCode(
                             code => code
-                                .setLanguage('markdown')
-                                .setShowLineNumbers(true)
-                                .setShowMiniMap(true)
+                                .setLanguage('plaintext')
+                                .setShowLineNumbers(false)
+                                .setShowMiniMap(false)
                         )
                         .setContent(
 `
