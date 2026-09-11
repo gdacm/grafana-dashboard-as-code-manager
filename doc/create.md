@@ -99,9 +99,9 @@ main().catch(console.error);
 
 With this setup, you are creating all the dashboards defined in your `dashboardsInfos` structure (that will be defined in `./dashboards` folder) and it will use the configuration located in your `infoCode` structure (that will be defined in `./info` file).
 
-The [[info]] structure is basically a JSON object that contains the configuration for your dashboards, such as data source UIDs, folder IDs, and other relevant settings required by the `createDashboards` function that can be configured.
+The [info](info.md) structure is basically a JSON object that contains the configuration for your dashboards, such as data source UIDs, folder IDs, and other relevant settings required by the `createDashboards` function that can be configured.
 
-Note that the `Info` structure correspond to the merge of the infoCode you provide, with the `info.json` or `info.yml` that is present in the `./local` directory and some environnement variables that can patch that structure. See page [[info]] for more details.
+Note that the `Info` structure correspond to the merge of the infoCode you provide, with the `info.json` or `info.yml` that is present in the `./local` directory and some environnement variables that can patch that structure. See page [info](info.md) for more details.
 
 - Create a `info.ts` in the `src` directory with the following content:
 
@@ -283,7 +283,7 @@ And restart the application in previous steps.
 
 - You should now see a dashboard at url `https://your-grafana-instance.example.com/d/my-project-example-dashboard`.
 
-Notice how the dashboard URL is predictable based on the project vid prefix and the dashboard sid. For more informations about id, uid, vid and sid, refer to the [[vid]] page.
+Notice how the dashboard URL is predictable based on the project vid prefix and the dashboard sid. For more informations about id, uid, vid and sid, refer to the [vid](vid.md) page.
 
 That dashboard is located in a folder called "My Project" as it's the `projectRootGrafanaFolder` key in the info structure.
 
