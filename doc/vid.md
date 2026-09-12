@@ -1,6 +1,5 @@
 # id, uid, vid and sid
 
-
 📝 **You want just the least informations to use gdacm ? Just read the last paragraph** (What will you need to remember).
 
 ## Grafana Identifiers
