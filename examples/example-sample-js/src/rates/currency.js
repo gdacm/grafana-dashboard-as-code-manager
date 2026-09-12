@@ -1,4 +1,4 @@
-import { DashboardInfo } from "@gdacm/dashboard-manager";
+import { DashboardInfo } from "@gdacm/core";
 import { UqlQueryBuilder } from "@gdacm/querybuilder-uql";
 import {
     Dashboard,
@@ -6,12 +6,12 @@ import {
     TargetInfinity,
     Stat,
     DatasourceInfinity,
-} from "@gdacm/grafana-items";
+} from "@gdacm/core";
 
 /**
- * @typedef {import("@gdacm/base-types").GenericOptions} GenericOptions
- * @typedef {import("@gdacm/base-types").Info} Info
- * @typedef {import("@gdacm/base-types").DashboardMetaOptions} DashboardMetaOptions
+ * @typedef {import("@gdacm/core").GenericOptions} GenericOptions
+ * @typedef {import("@gdacm/core").Info} Info
+ * @typedef {import("@gdacm/core").DashboardMetaOptions} DashboardMetaOptions
  */
 
 /** 

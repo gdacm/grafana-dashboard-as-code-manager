@@ -10,8 +10,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@gdacm/base-types": "workspace:^",
-    "@gdacm/dashboard-manager": "workspace:^",
-    "@gdacm/grafana-items": "workspace:^"
+    "@gdacm/core": "workspace:^"
   }
 }

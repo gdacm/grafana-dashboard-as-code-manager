@@ -1,8 +1,8 @@
-import { DashboardInfo } from "@gdacm/dashboard-manager";
+import { DashboardInfo } from "@gdacm/core";
 import { UqlQueryBuilder } from "@gdacm/querybuilder-uql";
-import { GrafanaItem } from "@gdacm/grafana-items";
+import { GrafanaItem } from "@gdacm/core";
 
-import type { DashboardMetaOptions, GenericOptions } from "@gdacm/base-types";
+import type { DashboardMetaOptions, GenericOptions } from "@gdacm/core";
 
 const url = "https://autogare-bercy.passautocar.paris.fr/public/screens/5baa6b56-f7e3-495e-b584-1d489fc54f47"
 const gareRoutiereBercyQuery = new UqlQueryBuilder()

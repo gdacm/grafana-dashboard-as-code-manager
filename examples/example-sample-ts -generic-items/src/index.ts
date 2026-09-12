@@ -1,4 +1,4 @@
-import { DashboardsInfo } from '@gdacm/dashboard-manager';
+import { DashboardsInfo } from '@gdacm/core';
 import dashboardsInfoSample from './sample';
 import dashboardsInfoRates from './rates';
 

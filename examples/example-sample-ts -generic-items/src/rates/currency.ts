@@ -1,7 +1,7 @@
-import { DashboardInfo } from "@gdacm/dashboard-manager";
+import { DashboardInfo } from "@gdacm/core";
 import { UqlQueryBuilder } from "@gdacm/querybuilder-uql";
-import { GrafanaItem } from "@gdacm/grafana-items";
-import type { Info, DashboardMetaOptions, GenericOptions } from "@gdacm/base-types";
+import { GrafanaItem } from "@gdacm/core";
+import type { Info, DashboardMetaOptions, GenericOptions } from "@gdacm/core";
 
 const currencyQuery = (currency: string): string => new UqlQueryBuilder()
     .parseJson()

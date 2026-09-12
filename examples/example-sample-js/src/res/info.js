@@ -1,5 +1,5 @@
 const projectName = "Example Project JS";
-const projectRootVid = "example-project-js";
+const projectVidPrefix = "example-project-js";
 const projectRootGrafanaFolder = "Example Project JS";
 
 const ratesCurrencies = { 
@@ -16,7 +16,7 @@ const currencyUrlPrefix = "https://api.exchangerate-api.com/v4/latest/"
 
 export default {
     projectName,
-    projectRootVid,
+    projectVidPrefix,
     projectRootGrafanaFolder,
     ratesCurrencies,
     currencyUrlPrefix

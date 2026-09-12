@@ -1,4 +1,4 @@
-import { FolderInfo, DashboardsInfo } from "@gdacm/dashboard-manager";
+import { FolderInfo, DashboardsInfo } from "@gdacm/core";
 import dashboardInfosAirports from './airports';
 import dashboardInfosGareRoutiereBercy from './gare-routiere-bercy';
 

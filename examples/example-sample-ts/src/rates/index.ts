@@ -1,4 +1,4 @@
-import { FolderInfo, DashboardsInfo } from "@gdacm/dashboard-manager";
+import { FolderInfo, DashboardsInfo } from "@gdacm/core";
 import dashboardInfosCurrency from './currency';
 
 const folderInfo = new FolderInfo()
