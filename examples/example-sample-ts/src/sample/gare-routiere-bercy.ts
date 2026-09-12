@@ -7,7 +7,7 @@ import {
     DatasourceInfinity,
 } from "@gdacm/grafana-items";
 
-import type { DashboardOptions, GenericOptions, MetaOptions } from "@gdacm/base-types";
+import type { DashboardMetaOptions, GenericOptions } from "@gdacm/base-types";
 
 const url = "https://autogare-bercy.passautocar.paris.fr/public/screens/5baa6b56-f7e3-495e-b584-1d489fc54f47"
 const gareRoutiereBercyQuery = new UqlQueryBuilder()
@@ -60,7 +60,7 @@ const getPanel = (options: { datasource: DatasourceInfinity } & GenericOptions):
         )
 }
 
-const getDashboard = async (uid: string, metaOptions: MetaOptions<DashboardOptions>): Promise<Dashboard> => {
+const getDashboard = async (uid: string, metaOptions: DashboardMetaOptions): Promise<Dashboard> => {
     const { title, tags } = metaOptions;
     const { jsonDsUid } = metaOptions?.info || {};
 

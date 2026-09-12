@@ -1,7 +1,7 @@
 import { DashboardInfo } from "@gdacm/dashboard-manager";
 import { UqlQueryBuilder } from "@gdacm/querybuilder-uql";
 import { GrafanaItem } from "@gdacm/grafana-items";
-import type { Info, DashboardOptions, MetaOptions, GenericOptions } from "@gdacm/base-types";
+import type { Info, DashboardMetaOptions, GenericOptions } from "@gdacm/base-types";
 
 const currencyQuery = (currency: string): string => new UqlQueryBuilder()
     .parseJson()
@@ -57,7 +57,7 @@ const getPanel = (options: LocalOptions & GenericOptions): GrafanaItem => {
         ._setValue('type', 'stat')
 }
 
-const getGetDashboard = (currencyDashboard: string) => async (uid: string, metaOptions: MetaOptions<DashboardOptions>): Promise<GrafanaItem> => {
+const getGetDashboard = (currencyDashboard: string) => async (uid: string, metaOptions: DashboardMetaOptions): Promise<GrafanaItem> => {
     const { title, tags } = metaOptions;
     const { jsonDsUid, ratesCurrencies, currencyUrlPrefix } = metaOptions?.info || {};
 

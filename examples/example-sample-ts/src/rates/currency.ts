@@ -8,7 +8,7 @@ import {
     DatasourceInfinity,
 } from "@gdacm/grafana-items";
 
-import type { Info, DashboardOptions, MetaOptions, GenericOptions } from "@gdacm/base-types";
+import type { Info, DashboardMetaOptions, GenericOptions } from "@gdacm/base-types";
 
 const currencyQuery = (currency: string): string => new UqlQueryBuilder()
     .parseJson()
@@ -49,7 +49,7 @@ const getPanel = (options: LocalOptions & GenericOptions): Stat => {
         )
 }
 
-const getGetDashboard = (currencyDashboard: string) => async (uid: string, metaOptions: MetaOptions<DashboardOptions>): Promise<Dashboard> => {
+const getGetDashboard = (currencyDashboard: string) => async (uid: string, metaOptions: DashboardMetaOptions): Promise<Dashboard> => {
     const { title, tags } = metaOptions;
     const { jsonDsUid, ratesCurrencies, currencyUrlPrefix } = metaOptions?.info || {};
 
