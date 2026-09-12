@@ -8,7 +8,7 @@ import {
     DatasourceInfinity,
 } from "@gdacm/grafana-items";
 
-import type { GenericOptions, Info, DashboardOptions, MetaOptions } from "@gdacm/base-types";
+import type { GenericOptions, DashboardMetaOptions } from "@gdacm/base-types";
 
 const airportsQuery = new UqlQueryBuilder()
     .parseJson()
@@ -155,7 +155,7 @@ const getPanel = (options: LocalOptions & GenericOptions): Geomap => {
         )
 }
 
-const getDashboard = async (uid: string, metaOptions: MetaOptions<DashboardOptions>): Promise<Dashboard> => {
+const getDashboard = async (uid: string, metaOptions: DashboardMetaOptions): Promise<Dashboard> => {
     const { title, tags } = metaOptions;
     const { jsonDsUid } = metaOptions?.info || {};
 
