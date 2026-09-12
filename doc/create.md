@@ -18,7 +18,7 @@ yarn config set nodeLinker node-modules
 - Install base libs for grafana dashboard as code manager:
 
 ```bash
-yarn add @gdacm/base-types@latest @gdacm/grafana-items@latest @gdacm/dashboard-manager@latest --no-time-gate
+yarn add @gdacm/core@latest --no-time-gate
 ```
 
 - Install dev dependencies for typescript and tsx:
@@ -86,7 +86,7 @@ Note that by convention, output files generated at runtime are generated in the 
 **file**: `src/index.ts`
 
 ```ts
-import { createDashboards } from '@gdacm/dashboard-manager';
+import { createDashboards } from '@gdacm/core';
 import dashboardsInfos from './dashboards';
 import infoCode from './info';
 
@@ -121,9 +121,9 @@ export default {
 **file**: `src/dashboards/example.ts`
 
 ```ts
-import { DashboardMetaOptions } from "@gdacm/base-types";
-import { DashboardInfo } from "@gdacm/dashboard-manager";
-import { Dashboard, GrafanaItem, TextPanel } from "@gdacm/grafana-items";
+import { DashboardMetaOptions } from "@gdacm/core";
+import { DashboardInfo } from "@gdacm/core";
+import { Dashboard, GrafanaItem, TextPanel } from "@gdacm/core";
 
 const getDashboard = async (uid: string, metaOptions: DashboardMetaOptions): Promise<GrafanaItem> => {
     return new Dashboard(metaOptions)

@@ -1,11 +1,11 @@
-import { DashboardInfo } from "@gdacm/dashboard-manager";
+import { DashboardInfo } from "@gdacm/core";
 import { UqlQueryBuilder } from "@gdacm/querybuilder-uql";
 import {
     Dashboard,
     TargetInfinity,
     Table,
     DatasourceInfinity,
-} from "@gdacm/grafana-items";
+} from "@gdacm/core";
 
 const url = "https://autogare-bercy.passautocar.paris.fr/public/screens/5baa6b56-f7e3-495e-b584-1d489fc54f47"
 const gareRoutiereBercyQuery = new UqlQueryBuilder()
@@ -23,7 +23,7 @@ const gareRoutiereBercyQuery = new UqlQueryBuilder()
     .asString()
 
 /**
- * @param {{ datasource: DatasourceInfinity } & import("@gdacm/base-types").GenericOptions} options
+ * @param {{ datasource: DatasourceInfinity } & import("@gdacm/core").GenericOptions} options
  * @returns {Table}
  */
 const getPanel = (options) => {
@@ -63,7 +63,7 @@ const getPanel = (options) => {
 
 /**
  * @param {String} uid 
- * @param {import("@gdacm/base-types").DashboardMetaOptions} metaOptions 
+ * @param {import("@gdacm/core").DashboardMetaOptions} metaOptions 
  * @returns {Promise<Dashboard>}
  */
 const getDashboard = async (uid, metaOptions) => {

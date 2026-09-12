@@ -1,4 +1,4 @@
-import { createDashboards } from '@gdacm/dashboard-manager';
+import { createDashboards } from '@gdacm/core';
 import dashboardsInfo from './src';
 import infoCode from './src/res/info';
 

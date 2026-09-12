@@ -197,6 +197,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@gdacm/core@workspace:^, @gdacm/core@workspace:packages/core":
+  version: 0.0.0-use.local
+  resolution: "@gdacm/core@workspace:packages/core"
+  dependencies:
+    "@gdacm/base-types": "workspace:^"
+    "@gdacm/dashboard-manager": "workspace:^"
+    "@gdacm/grafana-items": "workspace:^"
+    "@types/node": "npm:^26.1.2"
+    typescript: "npm:^7.0.2"
+    vite: "npm:^8.2.0"
+  languageName: unknown
+  linkType: soft
+
 "@gdacm/dashboard-manager@workspace:^, @gdacm/dashboard-manager@workspace:packages/dashboard-manager":
   version: 0.0.0-use.local
   resolution: "@gdacm/dashboard-manager@workspace:packages/dashboard-manager"
@@ -2330,9 +2343,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sample-js-relax-check-no-types@workspace:examples/example-sample-js-relax-check-no-types"
   dependencies:
-    "@gdacm/base-types": "workspace:^"
-    "@gdacm/dashboard-manager": "workspace:^"
-    "@gdacm/grafana-items": "workspace:^"
+    "@gdacm/core": "workspace:^"
   languageName: unknown
   linkType: soft
 
@@ -2340,9 +2351,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sample-js@workspace:examples/example-sample-js"
   dependencies:
-    "@gdacm/base-types": "workspace:^"
-    "@gdacm/dashboard-manager": "workspace:^"
-    "@gdacm/grafana-items": "workspace:^"
+    "@gdacm/core": "workspace:^"
   languageName: unknown
   linkType: soft
 
@@ -2350,9 +2359,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sample-ts-generic-items@workspace:examples/example-sample-ts -generic-items"
   dependencies:
-    "@gdacm/base-types": "workspace:^"
-    "@gdacm/dashboard-manager": "workspace:^"
-    "@gdacm/grafana-items": "workspace:^"
+    "@gdacm/core": "workspace:^"
     tsx: "npm:^4.23.12"
     typescript: "npm:^7.0.2"
   languageName: unknown
@@ -2362,9 +2369,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sample-ts@workspace:examples/example-sample-ts"
   dependencies:
-    "@gdacm/base-types": "workspace:^"
-    "@gdacm/dashboard-manager": "workspace:^"
-    "@gdacm/grafana-items": "workspace:^"
+    "@gdacm/core": "workspace:^"
     tsx: "npm:^4.23.12"
     typescript: "npm:^7.0.2"
   languageName: unknown

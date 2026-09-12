@@ -45,7 +45,7 @@ Your dashboards will be generated and uploaded to your Grafana instance.
 ### Code
 
 ```ts
-import { createDashboards } from '@gdacm/dashboard-manager';
+import { createDashboards } from '@gdacm/core';
 import dashboardsInfos from './dashboards';
 import infoCode from './info';
 
@@ -77,7 +77,7 @@ const createDashboards : (localFolders: string[], outDir: string, infosCode: Inf
 ### Code
 
 ```ts
-import { DashboardsInfo } from "@gdacm/dashboard-manager";
+import { DashboardsInfo } from "@gdacm/core";
 import dashboardInfo1 from "./dashboard1";
 import dashboardInfo2 from "./dashboard2";
 import dashboardInfo3 from "./dashboard3";
@@ -105,7 +105,7 @@ Project Folder
 ```
 
 ```ts
-import { FolderInfo, DashboardsInfo } from "@gdacm/dashboard-manager";
+import { FolderInfo, DashboardsInfo } from "@gdacm/core";
 import dashboardInfo1 from "./dashboard1";
 import dashboardInfo2 from "./dashboard2";
 import dashboardInfo3 from "./dashboard3";
@@ -163,9 +163,9 @@ The function is usefull for generating dashboards dynamically based on data in y
 ### Code
 
 ```ts
-import { DashboardMetaOptions } from "@gdacm/base-types";
-import { DashboardInfo } from "@gdacm/dashboard-manager";
-import { Dashboard, GrafanaItem } from "@gdacm/grafana-items";
+import { DashboardMetaOptions } from "@gdacm/core";
+import { DashboardInfo } from "@gdacm/core";
+import { Dashboard, GrafanaItem } from "@gdacm/core";
 
 const getDashboard = async (uid: string, metaOptions: DashboardMetaOptions): Promise<GrafanaItem> => {
     return new Dashboard(metaOptions)

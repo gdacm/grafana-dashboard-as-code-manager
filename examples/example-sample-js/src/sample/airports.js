@@ -1,4 +1,4 @@
-import { DashboardInfo } from "@gdacm/dashboard-manager";
+import { DashboardInfo } from "@gdacm/core";
 import { UqlQueryBuilder } from "@gdacm/querybuilder-uql";
 import {
     Dashboard,
@@ -6,11 +6,11 @@ import {
     Geomap,
     TargetInfinity,
     DatasourceInfinity,
-} from "@gdacm/grafana-items";
+} from "@gdacm/core";
 
 /**
- * @typedef {import("@gdacm/base-types").GenericOptions} GenericOptions
- * @typedef {import("@gdacm/base-types").DashboardMetaOptions} DashboardMetaOptions
+ * @typedef {import("@gdacm/core").GenericOptions} GenericOptions
+ * @typedef {import("@gdacm/core").DashboardMetaOptions} DashboardMetaOptions
  */
 
 const airportsQuery = new UqlQueryBuilder()
