@@ -16,10 +16,4 @@ Libs for generating Grafana dashboards as code.
 
 ## Documentation
 
-- [Create a Project (tutorial)](./doc/create.md)
-- [Lib Documentation](./doc/lib.md)
-- [id, uid, vid, sid...](./doc/vid.md) - What are those ids ?
-- [metaOptions](./doc/metaoptions.md) - What is metaOptions for gdacm
-- [Info structure](./doc/info.md)
-
-- **@gdacm/querybuilder-uql** and **@gdacm/querybuilder-influxdb2** are query builder libraries for UQL and InfluxDB v2 respectively. Those can be be used without the core libraries of @gdacm, and you can use @gdacm without them, but if you need to use UQL or InfluxDB v2 queries within your Grafana dashboards, those are useful.
+See https://github.com/gdacm/grafana-dashboard-as-code-manager for documentation
