@@ -31,6 +31,7 @@
     "clean:recursive": "yarn workspaces foreach -A --topological run clean:local",
     "clean": "yarn clean:recursive && yarn",
     "pub": "yarn clean && yarn build && yarn test:run && yarn release",
+    "core": "yarn workspace @gdacm/core",
     "bt": "yarn workspace @gdacm/base-types",
     "dm": "yarn workspace @gdacm/dashboard-manager",
     "gi": "yarn workspace @gdacm/grafana-items",
