@@ -8,6 +8,7 @@ Libs for generating Grafana dashboards as code.
 
 - **Sources** : https://github.com/gdacm/grafana-dashboard-as-code-manager
 - **Packages** : 
+    - https://www.npmjs.com/package/@gdacm/core
     - https://www.npmjs.com/package/@gdacm/base-types
     - https://www.npmjs.com/package/@gdacm/dashboard-manager
     - https://www.npmjs.com/package/@gdacm/grafana-items
