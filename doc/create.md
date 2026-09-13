@@ -36,9 +36,7 @@ yarn add -D typescript tsx
     "type": "module",
     [...]
     "scripts": {
-        "dev": "tsx src/index.ts",
-        "build": "tsc",
-        "start": "node dist/index.js"
+        "start": "tsx src/index.ts"
     },
     [...]
 }
