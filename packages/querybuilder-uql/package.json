@@ -1,6 +1,6 @@
 {
   "name": "@gdacm/querybuilder-uql",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "author": "gissehel",
   "type": "module",
   "module": "./dist/index.js",
