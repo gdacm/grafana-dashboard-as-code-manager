@@ -299,7 +299,7 @@ function defineGrafanaObject(cls, key, type, option) {
     }
 
     const setNewName = `setNew${caseName}`;
-    if (hasPrototype(cls, setNewName) === false) {
+    {
         setPrototype(cls, setNewName,
             /**
              * @this GrafanaItem
