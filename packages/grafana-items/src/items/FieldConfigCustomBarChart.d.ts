@@ -21,10 +21,12 @@ export declare class FieldConfigCustomBarChart extends FieldConfigCustom {
     setFillOpacity(fillOpacity: Number): this;
     setGradientMode(gradientMode: String): this;
     setHideFrom(hideFrom: HideFrom): this;
+    setNewHideFrom(onNewCreated: ((item: HideFrom) => HideFrom) | undefined): this;
     withHideFrom(onWith: (item: HideFrom) => void): this;
     get hideFrom(): HideFrom;
     setLineWidth(lineWidth: Number): this;
     setThresholdsStyle(thresholdsStyle: ThresholdStyle): this;
+    setNewThresholdsStyle(onNewCreated: ((item: ThresholdStyle) => ThresholdStyle) | undefined): this;
     withThresholdsStyle(onWith: (item: ThresholdStyle) => void): this;
     get thresholdsStyle(): ThresholdStyle;
     setThresholdsStyleMode(mode: string): this;

@@ -49,6 +49,7 @@ export { PanelOptionsTableSortBy } from "./items/PanelOptionsTableSortBy.js";
 export { PanelOptionsText } from "./items/PanelOptionsText.js";
 export { PanelOptionsTextCode } from "./items/PanelOptionsTextCode.js";
 export { PanelOptionsTimeSeries } from "./items/PanelOptionsTimeSeries.js";
+export { PieChartLegendOptions } from "./items/PieChartLegendOptions.js";
 export { ScaleDistribution } from "./items/ScaleDistribution.js";
 export { Stacking } from "./items/Stacking.js";
 export { StyleColor } from "./items/StyleColor.js";

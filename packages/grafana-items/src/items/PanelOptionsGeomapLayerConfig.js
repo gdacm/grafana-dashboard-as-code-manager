@@ -6,6 +6,5 @@ export const PanelOptionsGeomapLayerConfig = defineGrafanaItemClass('PanelOption
     .defineValue('showLegend', Boolean)
     .defineGrafanaObject('style', PanelOptionsGeomapLayerConfigStyle, {
         onDefault: (options) => new PanelOptionsGeomapLayerConfigStyle(options),
-        setNew: true,
     })
     .asClass

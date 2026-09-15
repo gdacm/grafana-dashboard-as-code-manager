@@ -270,13 +270,11 @@ function defineObject(cls, key, type, option) {
  * @param {string} [option.name]
  * @param {(instance: T) => void} [option.onInit]
  * @param {(metaOptions: GenericMetaOptions) => T} [option.onDefault]
- * @param {Boolean} [option.setNew]
  * @param {String} [option.typeName]
  */
 function defineGrafanaObject(cls, key, type, option) {
     const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
-    const setNew = option?.setNew ?? false;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
     if (metaClassInfo.typeNamesToInclude.includes(type.name) === false) {
@@ -301,7 +299,7 @@ function defineGrafanaObject(cls, key, type, option) {
     }
 
     const setNewName = `setNew${caseName}`;
-    if (hasPrototype(cls, setNewName) === false && setNew) {
+    if (hasPrototype(cls, setNewName) === false) {
         setPrototype(cls, setNewName,
             /**
              * @this GrafanaItem
@@ -663,8 +661,8 @@ export class GrafanaItemClassBuilder {
      * @param {string} [option.name]
      * @param {(instance: T) => void} [option.onInit]
      * @param {(metaOptions: GenericMetaOptions) => T} [option.onDefault]
-     * @param {Boolean} [option.setNew]
      * @param {String} [option.typeName]
+     * @param {String} [option.setNew]
      * @return {this}
      */
     defineGrafanaObject(key, type, option) {

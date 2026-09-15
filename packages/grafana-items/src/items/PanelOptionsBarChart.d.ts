@@ -12,15 +12,18 @@ export declare class PanelOptionsBarChart extends PanelOptions {
     setFullHighlight(fullHighlight: Boolean): this;
     setGroupWidth(groupWidth: Number): this;
     setLegend(legend: VizLegendOptions): this;
+    setNewLegend(onNewCreated: ((item: VizLegendOptions) => VizLegendOptions) | undefined): this;
     withLegend(onWith: (item: VizLegendOptions) => void): this;
     get legend(): VizLegendOptions;
     setOrientation(orientation: String): this;
     setShowValue(showValue: String): this;
     setStacking(stacking: String): this;
     setText(text: VizTextDisplayOptions): this;
+    setNewText(onNewCreated: ((item: VizTextDisplayOptions) => VizTextDisplayOptions) | undefined): this;
     withText(onWith: (item: VizTextDisplayOptions) => void): this;
     get text(): VizTextDisplayOptions;
     setTooltip(tooltip: VizTooltipOptions): this;
+    setNewTooltip(onNewCreated: ((item: VizTooltipOptions) => VizTooltipOptions) | undefined): this;
     withTooltip(onWith: (item: VizTooltipOptions) => void): this;
     get tooltip(): VizTooltipOptions;
     setXField(xField: String): this;

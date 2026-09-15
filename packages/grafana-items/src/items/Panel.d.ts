@@ -11,10 +11,12 @@ import type { GenericMetaOptions } from "@gdacm/base-types";
 export declare class Panel extends GrafanaItem {
     setCacheTimeout(cacheTimeout: String): this;
     setDatasource(datasource: Datasource): this;
+    setNewDatasource(onNewCreated: ((item: Datasource) => Datasource) | undefined): this;
     withDatasource(onWith: (item: Datasource) => void): this;
     get datasource(): Datasource;
     setDescription(description: String): this;
     setFieldConfig(fieldConfig: FieldConfig): this;
+    setNewFieldConfig(onNewCreated: ((item: FieldConfig) => FieldConfig) | undefined): this;
     withFieldConfig(onWith: (item: FieldConfig) => void): this;
     get fieldConfig(): FieldConfig;
     setGridPos(gridPos: GridPos): this;
@@ -33,6 +35,7 @@ export declare class Panel extends GrafanaItem {
     setMaxDataPoints(maxDataPoints: Number): this;
     setMaxPerRow(maxPerRow: Number): this;
     setOptions(options: Object): this;
+    setNewOptions(onNewCreated: ((item: Object) => Object) | undefined): this;
     withOptions(onWith: (item: Object) => void): this;
     get options(): Object;
     setPluginVersion(pluginVersion: String): this;

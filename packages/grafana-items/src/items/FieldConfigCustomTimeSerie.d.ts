@@ -29,11 +29,13 @@ export declare class FieldConfigCustomTimeSerie extends FieldConfigCustom {
     setFillOpacity(fillOpacity: Number): this;
     setGradientMode(gradientMode: String): this;
     setHideFrom(hideFrom: HideFrom): this;
+    setNewHideFrom(onNewCreated: ((item: HideFrom) => HideFrom) | undefined): this;
     withHideFrom(onWith: (item: HideFrom) => void): this;
     get hideFrom(): HideFrom;
     setInsertNulls(insertNulls: Boolean): this;
     setLineInterpolation(lineInterpolation: String): this;
     setLineStyle(lineStyle: LineStyle): this;
+    setNewLineStyle(onNewCreated: ((item: LineStyle) => LineStyle) | undefined): this;
     withLineStyle(onWith: (item: LineStyle) => void): this;
     get lineStyle(): LineStyle;
     setLineStyleFill(fill: string): this;
@@ -45,9 +47,11 @@ export declare class FieldConfigCustomTimeSerie extends FieldConfigCustom {
     setShowValues(showValues: Boolean): this;
     setSpanNulls(spanNulls: Boolean): this;
     setStacking(stacking: Stacking): this;
+    setNewStacking(onNewCreated: ((item: Stacking) => Stacking) | undefined): this;
     withStacking(onWith: (item: Stacking) => void): this;
     get stacking(): Stacking;
     setThresholdsStyle(thresholdsStyle: ThresholdStyle): this;
+    setNewThresholdsStyle(onNewCreated: ((item: ThresholdStyle) => ThresholdStyle) | undefined): this;
     withThresholdsStyle(onWith: (item: ThresholdStyle) => void): this;
     get thresholdsStyle(): ThresholdStyle;
     setThresholdsStyleMode(mode: string): this;

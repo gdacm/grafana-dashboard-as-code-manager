@@ -10,6 +10,7 @@ import type { GenericMetaOptions } from "@gdacm/base-types";
 
 export declare class Dashboard extends GrafanaItem {
     setAnnotations(annotations: Annotations): this;
+    setNewAnnotations(onNewCreated: ((item: Annotations) => Annotations) | undefined): this;
     withAnnotations(onWith: (item: Annotations) => void): this;
     get annotations(): Annotations;
     setEditable(editable: Boolean): this;
@@ -31,13 +32,16 @@ export declare class Dashboard extends GrafanaItem {
     setRefresh(refresh: String): this;
     setTags(tags: Array<String>): this;
     setTemplating(templating: Templating): this;
+    setNewTemplating(onNewCreated: ((item: Templating) => Templating) | undefined): this;
     withTemplating(onWith: (item: Templating) => void): this;
     get templating(): Templating;
     setTime(time: TimeRange): this;
+    setNewTime(onNewCreated: ((item: TimeRange) => TimeRange) | undefined): this;
     withTime(onWith: (item: TimeRange) => void): this;
     get time(): TimeRange;
     setTimeRange(from: string, to: string): this;
     setTimepicker(timepicker: TimePicker): this;
+    setNewTimepicker(onNewCreated: ((item: TimePicker) => TimePicker) | undefined): this;
     withTimepicker(onWith: (item: TimePicker) => void): this;
     get timepicker(): TimePicker;
     setTimezone(timezone: String): this;

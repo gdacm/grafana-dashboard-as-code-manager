@@ -12,7 +12,7 @@ export const Panel = defineGrafanaItemClass('Panel', GrafanaItem)
     .defineGrafanaObject('datasource', Datasource, { onDefault: (options) => undefined })
     .defineValue('description', String)
     .defineGrafanaObject('fieldConfig', FieldConfig, { onDefault: (options) => new FieldConfig(options) })
-    .defineGrafanaObject('gridPos', GridPos, { setNew: true })
+    .defineGrafanaObject('gridPos', GridPos)
     .defineMethod('setPos', '(x: number, y: number, w: number, h: number): this;', {
         /**
          * @param {Panel} panel

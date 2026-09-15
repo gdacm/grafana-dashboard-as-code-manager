@@ -63,6 +63,7 @@ export { PanelOptionsGeomapLayer } from "./items/PanelOptionsGeomapLayer.js";
 export { PanelOptionsGeomapTooltip } from "./items/PanelOptionsGeomapTooltip.js";
 export { PanelOptionsGeomapView } from "./items/PanelOptionsGeomapView.js";
 export { PanelOptionsGeomap } from "./items/PanelOptionsGeomap.js";
+export { PieChartLegendOptions } from "./items/PieChartLegendOptions.js";
 export { PanelOptionsPieChart } from "./items/PanelOptionsPieChart.js";
 export { PanelOptionsStat } from "./items/PanelOptionsStat.js";
 export { PanelOptionsTableSortBy } from "./items/PanelOptionsTableSortBy.js";

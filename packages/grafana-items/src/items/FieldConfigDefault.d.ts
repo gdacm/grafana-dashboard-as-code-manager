@@ -12,6 +12,7 @@ export declare class FieldConfigDefault extends GrafanaItem {
     withColor(onWith: (item: Color) => void): this;
     get color(): Color;
     setCustom(custom: FieldConfigCustom): this;
+    setNewCustom(onNewCreated: ((item: FieldConfigCustom) => FieldConfigCustom) | undefined): this;
     withCustom(onWith: (item: FieldConfigCustom) => void): this;
     get custom(): FieldConfigCustom;
     setDecimals(decimals: Number): this;
@@ -24,6 +25,7 @@ export declare class FieldConfigDefault extends GrafanaItem {
     setMax(max: Number): this;
     setMin(min: Number): this;
     setThresholds(thresholds: Thresholds): this;
+    setNewThresholds(onNewCreated: ((item: Thresholds) => Thresholds) | undefined): this;
     withThresholds(onWith: (item: Thresholds) => void): this;
     get thresholds(): Thresholds;
     setUnit(unit: String): this;

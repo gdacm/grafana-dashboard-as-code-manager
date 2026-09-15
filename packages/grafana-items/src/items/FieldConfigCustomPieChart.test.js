@@ -11,6 +11,11 @@ describe('FieldConfigCustomPieChart', () => {
         
         expect(fieldConfigCustomPieChart).toBeInstanceOf(FieldConfigCustomPieChart);
         expect(fieldConfigCustomPieChart.asJson()).toEqual({
+            hideFrom: {
+                legend: false,
+                tooltip: false,
+                viz: false,
+            },
         });
     });
 });

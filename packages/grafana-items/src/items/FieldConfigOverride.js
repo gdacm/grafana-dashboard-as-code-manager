@@ -5,7 +5,7 @@ import { OverrideProperty } from "./OverrideProperty.js";
 
 export const FieldConfigOverride = defineGrafanaItemClass('FieldConfigOverride', GrafanaItem)
     .defineValue('__systemRef', String, { name: 'systemRef' })
-    .defineGrafanaObject('matcher', OverrideMatcher, { setNew: true })
+    .defineGrafanaObject('matcher', OverrideMatcher)
     .defineArray('properties', OverrideProperty, { itemName: 'property' })
     .asClass
 

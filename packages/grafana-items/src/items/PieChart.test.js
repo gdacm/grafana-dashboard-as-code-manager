@@ -17,7 +17,13 @@ describe('PieChart', () => {
                     color: {
                         mode: 'palette-classic'
                     },
-                    custom: {},
+                    custom: {
+                        hideFrom: {
+                            legend: false,
+                            tooltip: false,
+                            viz: false,
+                        },
+                    },
                 }
             },
             options: {},

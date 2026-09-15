@@ -6,6 +6,7 @@ import type { GenericMetaOptions } from "@gdacm/base-types";
 
 export declare class FieldConfig extends GrafanaItem {
     setDefaults(defaults: FieldConfigDefault): this;
+    setNewDefaults(onNewCreated: ((item: FieldConfigDefault) => FieldConfigDefault) | undefined): this;
     withDefaults(onWith: (item: FieldConfigDefault) => void): this;
     get defaults(): FieldConfigDefault;
     initOverrides(): this;

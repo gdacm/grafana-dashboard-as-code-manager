@@ -51,7 +51,6 @@ export const definePanel = (builder, typeName, fieldConfigCustom, panelOptions, 
             }
         })
         .defineGrafanaObject('options', panelOptions, {
-            setNew: true,
             onDefault: (options) => new panelOptions(options),
         })
 

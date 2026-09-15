@@ -1,8 +1,11 @@
 import { FieldConfigCustom } from "./FieldConfigCustom.js";
-
+import { HideFrom } from "./HideFrom.js";
 
 import type { GenericMetaOptions } from "@gdacm/base-types";
 
 export declare class FieldConfigCustomPieChart extends FieldConfigCustom {
-
+    setHideFrom(hideFrom: HideFrom): this;
+    setNewHideFrom(onNewCreated: ((item: HideFrom) => HideFrom) | undefined): this;
+    withHideFrom(onWith: (item: HideFrom) => void): this;
+    get hideFrom(): HideFrom;
 }

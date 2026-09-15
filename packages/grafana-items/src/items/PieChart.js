@@ -10,12 +10,4 @@ export const PieChart = defineGrafanaItemClass('PieChart', Panel)
             instance.fieldConfig.defaults.setColorMode('palette-classic')
         }
     }))
-
-
-    // .defineValue('foo1', String)
-    // .defineValue('foo2', Number)
-    // .defineGrafanaObject('foo3', Foo, {
-    //     onDefault: (metaOptions) => getFoo(metaOptions),
-    // })
-    // .defineArray('foo4s', Bar)
     .asClass

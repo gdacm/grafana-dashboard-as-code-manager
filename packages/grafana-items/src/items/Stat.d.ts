@@ -8,7 +8,6 @@ export declare class Stat extends Panel {
     constructor(metaOptions: GenericMetaOptions)
     get custom(): FieldConfigCustomStat;
     withCustom(code: (custom: FieldConfigCustomStat) => void): this
-    setNewOptions(onNewCreated: ((item: PanelOptionsStat) => PanelOptionsStat) | undefined): this;
     withOptions(onWith: (item: PanelOptionsStat) => void): this;
     get options(): PanelOptionsStat;
 }
