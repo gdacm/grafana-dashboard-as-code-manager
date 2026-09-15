@@ -8,6 +8,7 @@ export const Gauge = defineGrafanaItemClass('Gauge', Panel)
     .with(builder => definePanel(builder, 'gauge', FieldConfigCustomGauge, PanelOptionsGauge, {
         onInit: (instance) => {
             instance.fieldConfig.defaults.setColorMode('palette-classic');
+            instance.fieldConfig.defaults.thresholds.setMode('absolute');
         }
     }))
     .asClass

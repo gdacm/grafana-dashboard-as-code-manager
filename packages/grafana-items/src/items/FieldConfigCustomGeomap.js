@@ -3,7 +3,7 @@ import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
 import { HideFrom } from "./HideFrom.js";
 
 export const FieldConfigCustomGeomap = defineGrafanaItemClass('FieldConfigCustomGeomap', FieldConfigCustom)
-    .defineObject('hideFrom', HideFrom, {
+    .defineGrafanaObject('hideFrom', HideFrom, {
         onDefault: (options) => new HideFrom(options)
             .setLegend(false)
             .setTooltip(false)

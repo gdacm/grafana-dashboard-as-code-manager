@@ -15,4 +15,7 @@ export declare class GrafanaItem {
     _setObject<T>(key: string, value: T): this;
     _getObject<T>(key: string): T;
     _withObject<T>(key: string, code: (item: T) => void): this;
+    _setGrafanaObject<T extends GrafanaItem>(key: string, type: new (metaOptions: GenericMetaOptions) => T, value: T | undefined): this;
+    _getGrafanaObject<T extends GrafanaItem>(key: string, type: new (metaOptions: GenericMetaOptions) => T): T;
+    _withGrafanaObject<T extends GrafanaItem>(key: string, type: new (metaOptions: GenericMetaOptions) => T, code: (item: T) => void): this;
 }

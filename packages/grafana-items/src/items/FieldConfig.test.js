@@ -28,9 +28,6 @@ describe('FieldConfig', () => {
             defaults: {
                 color: {
                     mode: 'someMode'
-                },
-                thresholds: {
-                    mode: 'absolute'
                 }
             },
             overrides: [

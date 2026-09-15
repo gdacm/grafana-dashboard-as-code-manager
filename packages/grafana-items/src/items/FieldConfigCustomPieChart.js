@@ -1,7 +1,7 @@
-import { GrafanaItem } from "./GrafanaItem.js";
+import { FieldConfigCustom } from "./FieldConfigCustom.js";
 import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
 
-export const {{pascalCase name}} = defineGrafanaItemClass('{{pascalCase name}}', GrafanaItem)
+export const FieldConfigCustomPieChart = defineGrafanaItemClass('FieldConfigCustomPieChart', FieldConfigCustom)
     // .defineValue('foo1', String)
     // .defineValue('foo2', Number)
     // .defineGrafanaObject('foo3', Foo, {

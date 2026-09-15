@@ -4,7 +4,7 @@ import { TemplateCurrent } from "./TemplateCurrent.js";
 import { TemplateOption } from "./TemplateOption.js";
 
 export const Template = defineGrafanaItemClass('Template', GrafanaItem)
-    .defineObject('current', TemplateCurrent, { setNew: true })
+    .defineGrafanaObject('current', TemplateCurrent, { setNew: true })
     .defineValue('definition', String)
     .defineValue('description', String)
     .defineValue('hide', Number)

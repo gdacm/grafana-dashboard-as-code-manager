@@ -8,6 +8,7 @@ export const BarChart = defineGrafanaItemClass('BarChart', Panel)
     .with((instance) => definePanel(instance, 'barchart', FieldConfigCustomBarChart, PanelOptionsBarChart, {
         onInit: (instance) => {
             instance.fieldConfig.defaults.setColorMode('palette-classic')
+            instance.fieldConfig.defaults.thresholds.setMode('absolute');
         }
     }))
     .defineMethod('setThresholdsStyleArea', '(): this', {

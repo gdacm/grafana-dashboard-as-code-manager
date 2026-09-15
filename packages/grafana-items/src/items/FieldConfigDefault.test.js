@@ -12,9 +12,6 @@ describe('FieldConfigDefault', () => {
         
         expect(fieldConfigDefault).toBeInstanceOf(FieldConfigDefault);
         expect(fieldConfigDefault.asJson()).toEqual({
-            thresholds: {
-                mode: "absolute"
-            }
         });
     });
 
@@ -37,9 +34,6 @@ describe('FieldConfigDefault', () => {
             mappings: [
                 {},
             ],
-            thresholds: {
-                mode: "absolute"
-            }
         });
     });
 });

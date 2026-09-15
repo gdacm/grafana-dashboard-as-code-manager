@@ -19,7 +19,7 @@ export const FieldConfigCustomTimeSerie = defineGrafanaItemClass('FieldConfigCus
     .with(builder => defineHideableFieldConfig(builder))
     .defineValue('insertNulls', Boolean)
     .defineValue('lineInterpolation', String)
-    .defineObject('lineStyle', LineStyle, {
+    .defineGrafanaObject('lineStyle', LineStyle, {
         onDefault: (options) => new LineStyle(options).setFill('solid'),
     })
     .defineMethod('setLineStyleFill', '(fill: string): this;', {
@@ -40,10 +40,10 @@ export const FieldConfigCustomTimeSerie = defineGrafanaItemClass('FieldConfigCus
     .defineValue('showPoints', String)
     .defineValue('showValues', Boolean)
     .defineValue('spanNulls', Boolean)
-    .defineObject('stacking', Stacking, {
+    .defineGrafanaObject('stacking', Stacking, {
         onDefault: (options) => new Stacking(options).setGroup('A').setMode('none'),
     })
-    .defineObject('thresholdsStyle', ThresholdStyle, {
+    .defineGrafanaObject('thresholdsStyle', ThresholdStyle, {
         onDefault: (options) => new ThresholdStyle(options).setMode('off'),
     })
     // .define(FieldConfigCustomTimeSerie, 'transform', )

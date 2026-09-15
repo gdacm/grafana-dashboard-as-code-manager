@@ -6,7 +6,7 @@ import { HideFrom } from "../HideFrom.js";
  */
 export const defineHideableFieldConfig = (builder) => {
     builder
-        .defineObject('hideFrom', HideFrom, {
+        .defineGrafanaObject('hideFrom', HideFrom, {
             onDefault: (options) => new HideFrom(options)
                 .setLegend(false)
                 .setTooltip(false)

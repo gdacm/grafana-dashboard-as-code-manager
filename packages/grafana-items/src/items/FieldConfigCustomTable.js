@@ -5,10 +5,10 @@ import { FieldConfigCustomTableFooter } from "./FieldConfigCustomTableFooter.js"
 
 export const FieldConfigCustomTable = defineGrafanaItemClass('FieldConfigCustomTable', FieldConfigCustom)
     .defineValue('align', String)
-    .defineObject('cellOptions', FieldConfigCustomTableCellOptions, {
+    .defineGrafanaObject('cellOptions', FieldConfigCustomTableCellOptions, {
         onDefault: (options) => new FieldConfigCustomTableCellOptions(options),
     })
-    .defineObject('footer', FieldConfigCustomTableFooter, {
+    .defineGrafanaObject('footer', FieldConfigCustomTableFooter, {
         onDefault: (options) => new FieldConfigCustomTableFooter(options),
     })
     .defineValue('inspect', Boolean)

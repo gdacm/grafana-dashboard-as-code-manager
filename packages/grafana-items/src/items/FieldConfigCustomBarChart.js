@@ -10,7 +10,7 @@ export const FieldConfigCustomBarChart = defineGrafanaItemClass('FieldConfigCust
     .defineValue('gradientMode', String)
     .with(builder => defineHideableFieldConfig(builder))
     .defineValue('lineWidth', Number)
-    .defineObject('thresholdsStyle', ThresholdStyle, {
+    .defineGrafanaObject('thresholdsStyle', ThresholdStyle, {
         onDefault: (options) => new ThresholdStyle(options).setMode('off'),
     })
     .defineMethod('setThresholdsStyleMode', '(mode: string): this;',{

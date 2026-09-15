@@ -1,7 +1,7 @@
-import { GrafanaItem } from "./GrafanaItem.js";
+import { PanelOptions } from "./PanelOptions.js";
 import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
 
-export const {{pascalCase name}} = defineGrafanaItemClass('{{pascalCase name}}', GrafanaItem)
+export const PanelOptionsPieChart = defineGrafanaItemClass('PanelOptionsPieChart', PanelOptions)
     // .defineValue('foo1', String)
     // .defineValue('foo2', Number)
     // .defineGrafanaObject('foo3', Foo, {

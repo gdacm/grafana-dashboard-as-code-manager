@@ -4,7 +4,7 @@ import { PanelOptionsGeomapLayerConfigStyle } from "./PanelOptionsGeomapLayerCon
 
 export const PanelOptionsGeomapLayerConfig = defineGrafanaItemClass('PanelOptionsGeomapLayerConfig', GrafanaItem)
     .defineValue('showLegend', Boolean)
-    .defineObject('style', PanelOptionsGeomapLayerConfigStyle, {
+    .defineGrafanaObject('style', PanelOptionsGeomapLayerConfigStyle, {
         onDefault: (options) => new PanelOptionsGeomapLayerConfigStyle(options),
         setNew: true,
     })

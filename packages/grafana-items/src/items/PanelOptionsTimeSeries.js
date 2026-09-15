@@ -6,16 +6,16 @@ import { VizTooltipOptions } from "./VizTooltipOptions.js";
 
 export const PanelOptionsTimeSeries = defineGrafanaItemClass('PanelOptionsTimeSeries', PanelOptions)
     .defineValue('disableKeyboardEvents', Boolean)
-    .defineObject('legend', VizLegendOptions, {
+    .defineGrafanaObject('legend', VizLegendOptions, {
         onDefault: (options) => new VizLegendOptions(options)
             .setDisplayMode('list')
             .setPlacement('bottom')
             .setShowLegend(false)
     })
     .defineValue('orientation', String)
-    // .defineObject('timeCompare', )
+    // .defineGrafanaObject('timeCompare', )
     // .define('timezone', )
-    .defineObject('tooltip', VizTooltipOptions, {
+    .defineGrafanaObject('tooltip', VizTooltipOptions, {
         onDefault: (options) => new VizTooltipOptions(options)
             .setHideZeros(false)
             .setMode('single')

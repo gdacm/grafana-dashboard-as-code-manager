@@ -6,17 +6,17 @@ import { Mapping } from "./Mapping.js";
 import { Thresholds } from "./Thresholds.js";
 
 export const FieldConfigDefault = defineGrafanaItemClass('FieldConfigDefault', GrafanaItem)
-    .defineObject('color', Color, {
+    .defineGrafanaObject('color', Color, {
         setNew: true,
     })
-    .defineObject('custom', FieldConfigCustom, {})
+    .defineGrafanaObject('custom', FieldConfigCustom, {})
     .defineValue('decimals', Number)
     .defineValue('fieldMinMax', Boolean)
     .defineArray('mappings', Mapping)
     .defineValue('max', Number)
     .defineValue('min', Number)
-    .defineObject('thresholds', Thresholds, {
-        onDefault: (options) => new Thresholds(options).setMode('absolute'),
+    .defineGrafanaObject('thresholds', Thresholds, {
+        // onDefault: (options) => new Thresholds(options).setMode('absolute'),
     })
     .defineValue('unit', String)
     .defineMethod('setColorMode', '(mode: string): this;', {

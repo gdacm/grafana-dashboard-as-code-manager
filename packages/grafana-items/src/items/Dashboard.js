@@ -10,7 +10,7 @@ import { getAnnotations } from "../torefactor/index.js";
 
 export const Dashboard = defineGrafanaItemClass('Dashboard', GrafanaItem)
     .setParent(GrafanaItem)
-    .defineObject('annotations', Annotations, {
+    .defineGrafanaObject('annotations', Annotations, {
         onDefault: (options) => getAnnotations(options),
     })
     .defineValue('editable', Boolean)
@@ -42,10 +42,10 @@ export const Dashboard = defineGrafanaItemClass('Dashboard', GrafanaItem)
     .defineValue('schemaVersion', Number)
     .defineValue('refresh', String)
     .defineValue('tags', Array, { onDefault: (options) => [], typeName: 'Array<String>' })
-    .defineObject('templating', Templating, {
+    .defineGrafanaObject('templating', Templating, {
         onDefault: (options) => new Templating(options),
     })
-    .defineObject('time', TimeRange, {
+    .defineGrafanaObject('time', TimeRange, {
         onDefault: (options) => new TimeRange(options)
             // Range is mandatory for Grafana 12, or the dashboard crash at load time
             .setRange('now-6h', 'now'),
@@ -62,7 +62,7 @@ export const Dashboard = defineGrafanaItemClass('Dashboard', GrafanaItem)
             return dashboard;
         }
     })
-    .defineObject('timepicker', TimePicker, {
+    .defineGrafanaObject('timepicker', TimePicker, {
         onDefault: (options) => new TimePicker(options),
     })
     .defineValue('timezone', String, { onDefault: (options) => 'browser' })

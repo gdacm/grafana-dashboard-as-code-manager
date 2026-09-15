@@ -2,7 +2,7 @@ import { GrafanaItem } from "./GrafanaItem.js";
 import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
 
 export const PanelOptionsGeomapBasemap = defineGrafanaItemClass('PanelOptionsGeomapBasemap', GrafanaItem)
-    .defineObject('config', Object, { setNew: true })
+    .defineObject('config', Object)
     .defineValue('name', String)
     .defineValue('noRepeat', Boolean)
     .defineValue('type', String)

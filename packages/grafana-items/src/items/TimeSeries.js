@@ -6,7 +6,10 @@ import { definePanel } from "./properties/panel.js";
 
 export const TimeSeries = defineGrafanaItemClass('TimeSeries', Panel)
     .with(builder => definePanel(builder, 'timeseries', FieldConfigCustomTimeSerie, PanelOptionsTimeSeries, {
-        onInit: (instance) => instance.fieldConfig.defaults.setColorMode('palette-classic'),
+        onInit: (instance) => {
+            instance.fieldConfig.defaults.setColorMode('palette-classic')
+            instance.fieldConfig.defaults.thresholds.setMode('absolute');
+        },
     }))
     .defineMethod('setThresholdsStyleArea', '(): this', {
         code: (instance) => {

@@ -143,6 +143,47 @@ export class GrafanaItem {
         }
         return this;
     }
+
+    /**
+     * @template {GrafanaItem} T
+     * @param {string} key
+     * @param {new (metaOptions: GenericMetaOptions) => T} type
+     * @param {T|undefined} value
+     * @returns {this}
+     */
+    _setGrafanaObject(key, type, value) {
+        this._grafanaObjects[key] = value;
+        return this;
+    }
+
+    /**
+     * @template {GrafanaItem} T
+     * @param {string} key 
+     * @param {new (metaOptions: GenericMetaOptions) => T} type
+     * @returns {T|undefined}
+     */
+    _getGrafanaObject(key, type) {
+        if (!this._grafanaObjects[key]) {
+            this._grafanaObjects[key] = new type(this.metaOptions);
+        }
+        return this._grafanaObjects[key];
+    }
+
+    /**
+     * 
+     * @template {GrafanaItem} T
+     * @param {string} key
+     * @param {new (metaOptions: GenericMetaOptions) => T} type
+     * @param {(item: T) => void} code 
+     * @returns {this}
+     */
+    _withGrafanaObject(key, type, code) {
+        const obj = this._getGrafanaObject(key, type);
+        if (obj) {
+            code(obj);
+        }
+        return this;
+    }
 }
 
 defineClass(GrafanaItem)
@@ -160,3 +201,6 @@ defineClass(GrafanaItem)
     .defineMember('_setObject<T>(key: string, value: T): this;')
     .defineMember('_getObject<T>(key: string): T;')
     .defineMember('_withObject<T>(key: string, code: (item: T) => void): this;')
+    .defineMember('_setGrafanaObject<T extends GrafanaItem>(key: string, type: new (metaOptions: GenericMetaOptions) => T, value: T | undefined): this;')
+    .defineMember('_getGrafanaObject<T extends GrafanaItem>(key: string, type: new (metaOptions: GenericMetaOptions) => T): T;')
+    .defineMember('_withGrafanaObject<T extends GrafanaItem>(key: string, type: new (metaOptions: GenericMetaOptions) => T, code: (item: T) => void): this;')
