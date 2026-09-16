@@ -25,6 +25,7 @@ export function defineValue(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
+
     addTypeNameToInclude(cls, type.name);
 
     setPrototypeWithSignature(
@@ -64,6 +65,7 @@ export function defineBasicObject(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
+
     addTypeNameToInclude(cls, type.name);
 
     setPrototypeWithSignature(
@@ -125,6 +127,7 @@ export function defineObject(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
+
     addTypeNameToInclude(cls, type.name);
 
     setPrototypeWithSignature(
@@ -205,8 +208,9 @@ export function defineArray(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
-    addTypeNameToInclude(cls, type.name);
     const caseItemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
+
+    addTypeNameToInclude(cls, type.name);
 
     setPrototypeWithSignature(
         cls,
@@ -301,8 +305,9 @@ export function defineBasicArray(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
-    addTypeNameToInclude(cls, type.name);
     const caseItemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
+
+    addTypeNameToInclude(cls, type.name);
 
     setPrototypeWithSignature(
         cls,
@@ -442,6 +447,7 @@ export function defineGetterSetter(cls, name, typeName, option) {
         getter,
         setter,
     } = option || {};
+
     addTypesToInclude(cls, typesToInclude);
 
     if (getter !== undefined) {
