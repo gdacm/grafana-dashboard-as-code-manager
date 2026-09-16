@@ -1,5 +1,6 @@
 import { GrafanaItem } from "../items/GrafanaItem.js";
-import { defineValue, defineBasicObject, defineObject, defineArray, defineBasicArray, defineConstructor, hasType, setTypeMetaClassInfo, getMetaClassInfo, defineMember, defineMethod, defineGetterSetter } from "./typesDefinition.js";
+import { defineValue, defineBasicObject, defineObject, defineArray, defineBasicArray, defineConstructor, defineMember, defineMethod, defineGetterSetter } from "./typesDefinition.js";
+import { getMetaClassInfo, hasType, setTypeMetaClassInfo } from "./typesReference.js";
 
 /**
  * @typedef {import("@gdacm/base-types").GenericMetaOptions} GenericMetaOptions

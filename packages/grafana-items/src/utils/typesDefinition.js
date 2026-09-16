@@ -1,5 +1,5 @@
 import { GrafanaItem } from "../items/GrafanaItem.js";
-import { MetaClassRegistry } from "./MetaClassRegistry.js";
+import { addTypeNameToInclude, addTypesToInclude, getMetaClassInfo, hasPrototype, setGetter, setGetterAndSetter, setPrototype, setSetter } from "./typesReference.js";
 
 /**
  * @typedef {import("@gdacm/base-types").GenericMetaOptions} GenericMetaOptions
@@ -17,135 +17,6 @@ import { MetaClassRegistry } from "./MetaClassRegistry.js";
  */
 
 /**
- * @type {MetaClassRegistry<GrafanaItem>}
- */
-const types = new MetaClassRegistry();
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls
- * @returns {boolean} Whether the type exists in the map
- */
-export const hasType = (cls) => types.has(cls);
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls
- * @returns {MetaClassInfo<GrafanaItem,C>}
- */
-export const getMetaClassInfo = (cls) => types.get(cls);
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls
- * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
- */
-export const setTypeMetaClassInfo = (cls, metaClassInfo) => types.set(cls, metaClassInfo);
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls
- * @returns {Record<string, unknown>}
- */
-const getPrototype = (cls) => (/** @type {Record<string, unknown>} */(cls.prototype));
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls
- * @param {string} name 
- */
-function hasPrototype(cls, name) {
-    return getPrototype(cls)[name] !== undefined;
-}
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls
- * @param {string} name 
- * @param {Function} value 
- */
-function setPrototype(cls, name, value) {
-    getPrototype(cls)[name] = value;
-}
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls 
- * @param {string} name 
- * @param {(self: C) => any} getter 
- */
-function setGetter(cls, name, getter) {
-    Object.defineProperty(cls.prototype, name, {
-        get() {
-            return getter(this);
-        },
-        enumerable: false,
-        configurable: true
-    });
-}
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls 
- * @param {string} name 
- * @param {(instance: C, value: any) => void} setter 
- */
-function setSetter(cls, name, setter) {
-    Object.defineProperty(cls.prototype, name, {
-        set(value) {
-            return setter(this, value);
-        },
-        enumerable: false,
-        configurable: true
-    });
-}
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls 
- * @param {string} name 
- * @param {(self: C) => any} getter 
- * @param {(instance: C, value: any) => void} setter 
- */
-function setGetterAndSetter(cls, name, getter, setter) {
-    Object.defineProperty(cls.prototype, name, {
-        get() {
-            return getter(this);
-        },
-        set(value) {
-            return setter(this, value);
-        },
-        enumerable: false,
-        configurable: true
-    });
-}
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
- * @param {string} typeName
- */
-const addTypeNameToInclude = (metaClassInfo, typeName) => {
-    if (metaClassInfo.typeNamesToInclude.includes(typeName) === false) {
-        if (['String', 'Number', 'Boolean', 'Array', 'Object'].indexOf(typeName) === -1) {
-            metaClassInfo.typeNamesToInclude.push(typeName);
-        }
-    }
-};
-
-/**
- * @template {GrafanaItem} C
- * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
- * @param {(typeof GrafanaItem)[]} [typesToInclude]
- */
-const addTypesToInclude = (metaClassInfo, typesToInclude) => {
-    if (typesToInclude !== undefined) {
-        for (const type of typesToInclude) {
-            addTypeNameToInclude(metaClassInfo, type.name);
-        }
-    }
-}
-/**
  * @template {GrafanaItem} C
  * @param {MetaConstructor<C>} cls 
  * @param {string} key 
@@ -157,7 +28,7 @@ const addTypesToInclude = (metaClassInfo, typesToInclude) => {
  * @param {String} [option.typeName]
  */
 export function defineValue(cls, key, type, option) {
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
@@ -202,7 +73,7 @@ export function defineValue(cls, key, type, option) {
  * @param {String} [option.typeName]
  */
 export function defineBasicObject(cls, key, type, option) {
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
@@ -275,7 +146,7 @@ export function defineBasicObject(cls, key, type, option) {
  * @param {String} [option.typeName]
  */
 export function defineObject(cls, key, type, option) {
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
@@ -366,7 +237,7 @@ export function defineObject(cls, key, type, option) {
  * @param {(metaOptions: GenericMetaOptions) => T[]} [option.onDefault]
  */
 export function defineArray(cls, key, type, option) {
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
@@ -478,7 +349,7 @@ export function defineArray(cls, key, type, option) {
  * @param {(metaOptions: GenericMetaOptions) => Object[]} [option.onDefault]
  */
 export function defineBasicArray(cls, key, type, option) {
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
@@ -570,7 +441,7 @@ export function defineBasicArray(cls, key, type, option) {
 export function defineConstructor(cls, code) {
     const constr = code;
 
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     metaClassInfo.methods.push('constructor(metaOptions: GenericMetaOptions)');
     metaClassInfo.onInits.push((instance) => constr(instance));
 }
@@ -585,7 +456,7 @@ export function defineConstructor(cls, code) {
  */
 export function defineMember(cls, method, option) {
     const { typesToInclude } = option || {};
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     metaClassInfo.methods.push(method);
     addTypesToInclude(metaClassInfo, typesToInclude);
 }
@@ -606,7 +477,7 @@ export const defineMethod = (cls, name, args, option) => {
         code,
     } = option || {};
 
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     metaClassInfo.methods.push(`${name}${args}`);
     addTypesToInclude(metaClassInfo, typesToInclude);
 
@@ -644,7 +515,7 @@ export function defineGetterSetter(cls, name, typeName, option) {
         getter,
         setter,
     } = option || {};
-    const metaClassInfo = types.get(cls);
+    const metaClassInfo = getMetaClassInfo(cls);
     addTypesToInclude(metaClassInfo, typesToInclude);
 
     if (getter !== undefined) {
@@ -670,31 +541,3 @@ export function defineGetterSetter(cls, name, typeName, option) {
     }
 }
 
-/**
- * @template {GrafanaItem} C
- * @param {MetaConstructor<C>} cls
- * @returns {string}
- */
-export function getType(cls) {
-    const clsName = cls.name;
-    const metaClassInfo = types.get(cls);
-
-    return `export declare class ${clsName}${metaClassInfo.parentName ? " extends " : ""}${metaClassInfo.parentName || ""} {
-${metaClassInfo.methods.map((method) => `    ${method}`).join('\n')}
-}
-`
-}
-
-/**
- * @returns {(string|string[]|undefined)[][]}
- */
-export function getTypes() {
-    /**
-     * @type {MetaConstructor<GrafanaItem>[]}
-     */
-    return types.keys()
-        .map(
-            (cls) => [
-                cls.name, getType(cls), types.get(cls).parentName, types.get(cls).typeNamesToInclude
-            ]);
-}

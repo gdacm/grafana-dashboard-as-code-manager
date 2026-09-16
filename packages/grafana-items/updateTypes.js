@@ -1,7 +1,7 @@
 import * as Grafana from "./src/index.js";
 import { writeFile, mkdir } from 'fs/promises';
 import { GrafanaItem } from "./src/items/GrafanaItem.js";
-import { getTypes } from "./src/utils/typesDefinition.js";
+import { getTypes } from "./src/utils/typesReference.js";
 
 const main = async () => {
     await mkdir('./dist/items', { recursive: true });
