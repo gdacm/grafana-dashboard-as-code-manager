@@ -31,4 +31,7 @@ export type MetaOptions<T extends GenericOptions> = GenericOptions & T;
 export type GenericMetaOptions = MetaOptions<GenericOptions>;
 export type DashboardMetaOptions = MetaOptions<DashboardOptions>;
 
-export type MetaConstructor<T> = new (metaOptions: GenericMetaOptions) => T
+export type MetaConstructor<T> = { 
+    new (metaOptions: GenericMetaOptions) : T;
+    prototype: T;
+}

@@ -1,7 +1,10 @@
 import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js";
 import { ScaleDistribution } from "../ScaleDistribution.js";
+import { FieldConfigCustom } from "../FieldConfigCustom.js";
+
 /**
- * @param {GrafanaItemClassBuilder} builder
+ * @template {FieldConfigCustom} T
+ * @param {GrafanaItemClassBuilder<T>} builder
  */
 export const defineAxisConfig = (builder) => {
     builder

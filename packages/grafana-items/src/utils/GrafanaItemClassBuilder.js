@@ -3,7 +3,12 @@ import { defineValue, defineObject, defineGrafanaObject, defineArray, defineBasi
 
 /**
  * @typedef {import("@gdacm/base-types").GenericMetaOptions} GenericMetaOptions
- * @typedef {import("./typesDefinition.js").MetaClassInfo} MetaClassInfo
+ */
+
+/**
+ * @template {Object} T
+ * @template {T} C
+ * @typedef {import("./MetaClassRegistry.js").MetaClassInfo<T,C>} MetaClassInfo
  */
 
 /**
@@ -11,16 +16,28 @@ import { defineValue, defineObject, defineGrafanaObject, defineArray, defineBasi
  * @typedef {import("@gdacm/base-types").MetaConstructor<T>} MetaConstructor
  */
 
+
+/**
+ * @template {GrafanaItem} C
+ */
 export class GrafanaItemClassBuilder {
     /**
-     * @param {typeof GrafanaItem} cls
+     * @param {MetaConstructor<C>} cls
      */
     constructor(cls) {
-        this.cls = cls;
+        /** @type {MetaConstructor<C>} */
+        this._cls = cls;
     }
 
     /**
-     * @param {typeof GrafanaItem} parent
+     * @return {MetaConstructor<C>}
+     */
+    get cls() {
+        return this._cls;
+    }
+
+    /**
+     * @param {MetaConstructor<GrafanaItem>} parent
      * @returns 
      */
     setParent(parent) {
@@ -33,8 +50,8 @@ export class GrafanaItemClassBuilder {
      * @param {Function} type
      * @param {Object} [option]
      * @param {string} [option.name]
-     * @param {(instance: InstanceType<typeof GrafanaItem>) => void} [option.onInit]
-     * @param {(metaOptions: GenericMetaOptions) => InstanceType<typeof GrafanaItem>} [option.onDefault]
+     * @param {(instance: C) => void} [option.onInit]
+     * @param {(metaOptions: GenericMetaOptions) => C} [option.onDefault]
      * @param {String} [option.typeName]
      * @return {this}
      */
@@ -48,8 +65,8 @@ export class GrafanaItemClassBuilder {
      * @param {Function} type 
      * @param {Object} [option]
      * @param {string} [option.name]
-     * @param {(instance: GrafanaItem) => void} [option.onInit]
-     * @param {(metaOptions: GenericMetaOptions) => InstanceType<typeof GrafanaItem>} [option.onDefault]
+     * @param {(instance: C) => void} [option.onInit]
+     * @param {(metaOptions: GenericMetaOptions) => Object} [option.onDefault]
      * @param {String} [option.typeName]
      * @return {this}
      */
@@ -64,7 +81,7 @@ export class GrafanaItemClassBuilder {
      * @param {MetaConstructor<T>} type 
      * @param {Object} [option]
      * @param {string} [option.name]
-     * @param {(instance: GrafanaItem) => void} [option.onInit]
+     * @param {(instance: C) => void} [option.onInit]
      * @param {(metaOptions: GenericMetaOptions) => T} [option.onDefault]
      * @param {String} [option.typeName]
      * @param {String} [option.setNew]
@@ -83,8 +100,8 @@ export class GrafanaItemClassBuilder {
      * @param {string} [option.name]
      * @param {string} [option.itemName]
      * @param {boolean} [option.setEmpty]
-     * @param {(instance: GrafanaItem) => void} [option.onInit]
-     * @param {(metaOptions: GenericMetaOptions) => T} [option.onDefault]
+     * @param {(instance: C) => void} [option.onInit]
+     * @param {(metaOptions: GenericMetaOptions) => T[]} [option.onDefault]
      * @return {this}
      */
     defineArray(key, type, option) {
@@ -100,8 +117,8 @@ export class GrafanaItemClassBuilder {
      * @param {string} [option.name]
      * @param {string} [option.itemName]
      * @param {boolean} [option.setEmpty]
-     * @param {(instance: GrafanaItem) => void} [option.onInit]
-     * @param {(metaOptions: GenericMetaOptions) => InstanceType<typeof GrafanaItem>} [option.onDefault]
+     * @param {(instance: C) => void} [option.onInit]
+     * @param {(metaOptions: GenericMetaOptions) => Object[]} [option.onDefault]
      * @return {this}
      */
     defineBasicArray(key, type, option) {
@@ -121,12 +138,11 @@ export class GrafanaItemClassBuilder {
     }
 
     /**
-     * @template {typeof GrafanaItem} T
-     * @param {(instance: InstanceType<T>) => void} code
+     * @param {(instance: C) => void} code
      * @return {this}
      */
     defineConstructor(code) {
-        defineConstructor(this.cls, /** @type {(instance: GrafanaItem) => void} */ (code));
+        defineConstructor(this.cls, /** @type {(instance: C) => void} */ (code));
         return this;
     }
 
@@ -135,7 +151,7 @@ export class GrafanaItemClassBuilder {
      * @param {string} args
      * @param {Object} option
      * @param {(typeof GrafanaItem)[]} [option.typesToInclude]
-     * @param {Function} option.code
+     * @param {(instance: C, ...args: any[]) => any} option.code
      * @return {this}
      */
     defineMethod(name, args, option) {
@@ -144,18 +160,17 @@ export class GrafanaItemClassBuilder {
     }
 
     /**
-     * @template {typeof GrafanaItem} T
      * @param {string} name
      * @param {string} type
      * @param {Object} option
      * @param {(typeof GrafanaItem)[]} [option.typesToInclude]
-     * @param {(instance: InstanceType<T>) => any} [option.getter]
-     * @param {(instance: InstanceType<T>, value: any) => void} [option.setter]
+     * @param {(instance: C) => any} [option.getter]
+     * @param {(instance: C, value: any) => void} [option.setter]
      * @return {this}
      */
     defineGetterSetter(name, type, option) {
-        const getter = /** @type {(instance: GrafanaItem) => any} */ (option.getter);
-        const setter = /** @type {(instance: GrafanaItem, value: any) => void} */ (option.setter);
+        const getter = (option.getter);
+        const setter = (option.setter);
         defineMemberInternal(this.cls, undefined, { ...option, getter, setter, name, getterSetterType: type });
         return this;
     }
@@ -177,19 +192,21 @@ export class GrafanaItemClassBuilder {
 }
 
 /**
+ * @template {GrafanaItem} C
  * @param {string} name
  * @param {typeof GrafanaItem} parent
- * @returns {GrafanaItemClassBuilder}
+ * @returns {GrafanaItemClassBuilder<C>}
  */
 export const defineGrafanaItemClass = (name, parent) => {
     const cls = class extends parent { };
     Object.defineProperty(cls, 'name', { value: name });
-    return defineClass(cls)
+    return defineClass(/** @type {MetaConstructor<C>} */ (cls))
         .setParent(parent);
 }
 
 /**
- * @param {typeof GrafanaItem} cls 
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls 
  */
 export function defineClass(cls) {
     if (!hasType(cls)) {
@@ -204,11 +221,12 @@ export function defineClass(cls) {
             // @ts-ignore
             onInitsParent = getMetaClassInfo(parent).onInits;
         }
-        /** @type {MetaClassInfo} */
+        /** @type {MetaClassInfo<GrafanaItem,C>} */
         const metaClassInfo = {
             methods: [],
             onInits: [...onInitsParent],
             parentName: parent?.name,
+            // @ts-ignore
             parent: parent,
             typeNamesToInclude: [],
         };

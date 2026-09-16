@@ -1,8 +1,10 @@
 import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js";
+import { FieldConfigCustom } from "../FieldConfigCustom.js";
 import { HideFrom } from "../HideFrom.js";
 
 /**
- * @param {GrafanaItemClassBuilder} builder
+ * @template {FieldConfigCustom} T
+ * @param {GrafanaItemClassBuilder<T>} builder
  */
 export const defineHideableFieldConfig = (builder) => {
     builder

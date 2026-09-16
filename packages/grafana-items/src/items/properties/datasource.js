@@ -2,21 +2,20 @@ import { Datasource } from "../Datasource.js";
 import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js";
 
 /**
- * @param {GrafanaItemClassBuilder} builder
+ * @template {Datasource} T
+ * @param {GrafanaItemClassBuilder<T>} builder
  * @param {string} typeName
  * @param {Object} [options]
- * @param {(instance: Datasource) => void} [options.onInit]
+ * @param {(instance: T) => void} [options.onInit]
  */
 export const defineDatasource = (builder, typeName, options) => {
     const { onInit } = options ?? {};
     builder
         .defineConstructor(
             (instance) => {
-                const self = /** @type {Datasource} */ (instance);
-                
-                self.setType(typeName);
+                instance.setType(typeName);
                 if (onInit) {
-                    onInit(self);
+                    onInit(instance);
                 }
             }
         )

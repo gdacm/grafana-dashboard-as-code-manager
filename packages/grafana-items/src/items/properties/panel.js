@@ -3,23 +3,27 @@ import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js"
 import { FieldConfigDefault } from "../FieldConfigDefault.js";
 import { FieldConfigCustom } from "../FieldConfigCustom.js";
 import { PanelOptions } from "../PanelOptions.js";
-import { GrafanaItem } from "../GrafanaItem.js";
 
 /**
- * @param {GrafanaItemClassBuilder} builder
+ * @template T
+ * @typedef {import("@gdacm/base-types").MetaConstructor<T>} MetaConstructor
+ */
+
+/**
+ * @template {Panel} T
+ * @param {GrafanaItemClassBuilder<T>} builder
  * @param {string} typeName
- * @param {typeof FieldConfigCustom} fieldConfigCustom
- * @param {typeof PanelOptions} panelOptions
+ * @param {MetaConstructor<FieldConfigCustom>} fieldConfigCustom
+ * @param {MetaConstructor<PanelOptions>} panelOptions
  * @param {Object} [options]
- * @param {(instance: Panel) => void} [options.onInit]
+ * @param {(instance: T) => void} [options.onInit]
  */
 export const definePanel = (builder, typeName, fieldConfigCustom, panelOptions, options) => {
     const { onInit } = options ?? {};
     builder
         .defineConstructor(
             (instance) => {
-                const self = /** @type {Panel} */ (instance);
-                self
+                instance
                     .setType(typeName)
                     .withFieldConfig(
                         fieldConfig => fieldConfig
@@ -31,18 +35,18 @@ export const definePanel = (builder, typeName, fieldConfigCustom, panelOptions, 
                             )
                     )
                 if (onInit) {
-                    onInit(self);
+                    onInit(instance);
                 }
             }
         )
         .defineGetterSetter('custom', `${fieldConfigCustom.name}`, {
             typesToInclude: [fieldConfigCustom],
-            getter: (instance) => (/** @type {Panel} */ (instance)).fieldConfig.defaults.custom,
+            getter: (instance) => instance.fieldConfig.defaults.custom,
         })
         .defineMethod(`withCustom`, `(code: (custom: ${fieldConfigCustom.name}) => void): this`, {
             typesToInclude: [fieldConfigCustom],
             /** 
-             * @param {Panel} instance 
+             * @param {T} instance 
              * @param {(custom: FieldConfigCustom) => void} code
              * */
             code: (instance, code) => {
