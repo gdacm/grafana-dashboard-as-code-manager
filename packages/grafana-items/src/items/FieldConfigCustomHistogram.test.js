@@ -8,9 +8,17 @@ describe('FieldConfigCustomHistogram', () => {
 
     it('should create a FieldConfigCustomHistogram', () => {
         const fieldConfigCustomHistogram = new FieldConfigCustomHistogram(defaultMetaOptions)
-        
+
         expect(fieldConfigCustomHistogram).toBeInstanceOf(FieldConfigCustomHistogram);
         expect(fieldConfigCustomHistogram.asJson()).toEqual({
+            hideFrom: {
+                legend: false,
+                tooltip: false,
+                viz: false,
+            },
+            scaleDistribution: {
+                type: "linear",
+            },
         });
     });
 });
