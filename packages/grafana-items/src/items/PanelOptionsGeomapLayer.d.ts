@@ -13,7 +13,10 @@ export declare class PanelOptionsGeomapLayer extends GrafanaItem {
     setNewLocation(onNewCreated: ((item: PanelOptionsGeomapLayerLocation) => PanelOptionsGeomapLayerLocation) | undefined): this;
     withLocation(onWith: (item: PanelOptionsGeomapLayerLocation) => void): this;
     get location(): PanelOptionsGeomapLayerLocation;
+    get name(): String;
     setName(name: String): this;
+    get tooltip(): Boolean;
     setTooltip(tooltip: Boolean): this;
+    get type(): String;
     setType(type: String): this;
 }

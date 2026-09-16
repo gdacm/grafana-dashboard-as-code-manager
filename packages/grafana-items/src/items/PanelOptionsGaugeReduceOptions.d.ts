@@ -8,7 +8,10 @@ export declare class PanelOptionsGaugeReduceOptions extends GrafanaItem {
     get calcs(): String[];
     addCalc(calc: String): this;
     withCalcs(onWith: (calcs: String[]) => void): this;
+    get fields(): String;
     setFields(fields: String): this;
+    get limit(): Number;
     setLimit(limit: Number): this;
+    get values(): Boolean;
     setValues(values: Boolean): this;
 }

@@ -13,6 +13,7 @@ export declare class PanelOptionsGeomapLayerConfigStyle extends GrafanaItem {
     setNewColor(onNewCreated: ((item: StyleColor) => StyleColor) | undefined): this;
     withColor(onWith: (item: StyleColor) => void): this;
     get color(): StyleColor;
+    get opacity(): Number;
     setOpacity(opacity: Number): this;
     setRotation(rotation: StyleRotation): this;
     setNewRotation(onNewCreated: ((item: StyleRotation) => StyleRotation) | undefined): this;

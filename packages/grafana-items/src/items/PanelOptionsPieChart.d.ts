@@ -13,7 +13,9 @@ export declare class PanelOptionsPieChart extends PanelOptions {
     setNewLegend(onNewCreated: ((item: PieChartLegendOptions) => PieChartLegendOptions) | undefined): this;
     withLegend(onWith: (item: PieChartLegendOptions) => void): this;
     get legend(): PieChartLegendOptions;
+    get pieType(): String;
     setPieType(pieType: String): this;
+    get sort(): String;
     setSort(sort: String): this;
     setTooltip(tooltip: VizTooltipOptions): this;
     setNewTooltip(onNewCreated: ((item: VizTooltipOptions) => VizTooltipOptions) | undefined): this;

@@ -28,6 +28,8 @@ export function defineValue(cls, key, type, option) {
 
     addTypeNameToInclude(cls, type.name);
 
+    setGetterWithSignature(cls, name, (self) => self._getValue(key), typeName);
+
     setPrototypeWithSignature(
         cls,
         `set${caseName}`,

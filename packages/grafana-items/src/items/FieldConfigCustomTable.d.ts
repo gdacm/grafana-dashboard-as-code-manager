@@ -5,6 +5,7 @@ import { FieldConfigCustomTableFooter } from "./FieldConfigCustomTableFooter.js"
 import type { GenericMetaOptions } from "@gdacm/base-types";
 
 export declare class FieldConfigCustomTable extends FieldConfigCustom {
+    get align(): String;
     setAlign(align: String): this;
     setCellOptions(cellOptions: FieldConfigCustomTableCellOptions): this;
     setNewCellOptions(onNewCreated: ((item: FieldConfigCustomTableCellOptions) => FieldConfigCustomTableCellOptions) | undefined): this;
@@ -14,5 +15,6 @@ export declare class FieldConfigCustomTable extends FieldConfigCustom {
     setNewFooter(onNewCreated: ((item: FieldConfigCustomTableFooter) => FieldConfigCustomTableFooter) | undefined): this;
     withFooter(onWith: (item: FieldConfigCustomTableFooter) => void): this;
     get footer(): FieldConfigCustomTableFooter;
+    get inspect(): Boolean;
     setInspect(inspect: Boolean): this;
 }

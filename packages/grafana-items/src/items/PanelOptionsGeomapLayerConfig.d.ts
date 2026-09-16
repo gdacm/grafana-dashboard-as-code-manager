@@ -4,6 +4,7 @@ import { PanelOptionsGeomapLayerConfigStyle } from "./PanelOptionsGeomapLayerCon
 import type { GenericMetaOptions } from "@gdacm/base-types";
 
 export declare class PanelOptionsGeomapLayerConfig extends GrafanaItem {
+    get showLegend(): Boolean;
     setShowLegend(showLegend: Boolean): this;
     setStyle(style: PanelOptionsGeomapLayerConfigStyle): this;
     setNewStyle(onNewCreated: ((item: PanelOptionsGeomapLayerConfigStyle) => PanelOptionsGeomapLayerConfigStyle) | undefined): this;

@@ -5,6 +5,7 @@ import { OverrideProperty } from "./OverrideProperty.js";
 import type { GenericMetaOptions } from "@gdacm/base-types";
 
 export declare class FieldConfigOverride extends GrafanaItem {
+    get systemRef(): String;
     setSystemRef(systemRef: String): this;
     setMatcher(matcher: OverrideMatcher): this;
     setNewMatcher(onNewCreated: ((item: OverrideMatcher) => OverrideMatcher) | undefined): this;

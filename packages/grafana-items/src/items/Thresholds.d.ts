@@ -4,6 +4,7 @@ import { ThresholdsStep } from "./ThresholdsStep.js";
 import type { GenericMetaOptions } from "@gdacm/base-types";
 
 export declare class Thresholds extends GrafanaItem {
+    get mode(): String;
     setMode(mode: String): this;
     initSteps(): this;
     get steps(): ThresholdsStep[];

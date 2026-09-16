@@ -8,6 +8,8 @@ export declare class PanelOptionsText extends PanelOptions {
     setNewCode(onNewCreated: ((item: PanelOptionsTextCode) => PanelOptionsTextCode) | undefined): this;
     withCode(onWith: (item: PanelOptionsTextCode) => void): this;
     get code(): PanelOptionsTextCode;
+    get content(): String;
     setContent(content: String): this;
+    get mode(): String;
     setMode(mode: String): this;
 }
