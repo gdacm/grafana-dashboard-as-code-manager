@@ -189,15 +189,15 @@ export class GrafanaItemClassBuilder {
 }
 
 /**
- * @template {GrafanaItem} C
+ * @template {GrafanaItem} P
  * @param {string} name
- * @param {typeof GrafanaItem} parent
- * @returns {GrafanaItemClassBuilder<C>}
+ * @param {MetaConstructor<P>} parent
+ * @returns {GrafanaItemClassBuilder<P>}
  */
 export const defineGrafanaItemClass = (name, parent) => {
     const cls = class extends parent { };
     Object.defineProperty(cls, 'name', { value: name });
-    return defineClass(/** @type {MetaConstructor<C>} */ (cls))
+    return defineClass(/** @type {MetaConstructor<P>} */ (cls))
         .setParent(parent);
 }
 

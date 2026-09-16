@@ -3,6 +3,7 @@ import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js"
 import { FieldConfigDefault } from "../FieldConfigDefault.js";
 import { FieldConfigCustom } from "../FieldConfigCustom.js";
 import { PanelOptions } from "../PanelOptions.js";
+import { GrafanaItem } from "../GrafanaItem.js";
 
 /**
  * @template T
