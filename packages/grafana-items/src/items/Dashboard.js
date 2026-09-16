@@ -18,6 +18,7 @@ export const Dashboard = defineGrafanaItemClass('Dashboard', GrafanaItem)
     .defineValue('graphTooltip', Number)
     .defineArray('links', Link, { itemName: 'link' })
     .defineValue('liveNow', Boolean)
+    .defineArray('panels', Panel, { itemName: 'panel' })
     .defineMethod('addPanel', '(panel: Panel): this;', {
         /**
          * @param {Dashboard} dashboard
@@ -37,7 +38,6 @@ export const Dashboard = defineGrafanaItemClass('Dashboard', GrafanaItem)
             return dashboard._addArrayItem('panels', panel);
         }
     })
-    .defineArray('panels', Panel, { itemName: 'panel' })
     .defineValue('preload', Boolean)
     .defineValue('schemaVersion', Number)
     .defineValue('refresh', String)

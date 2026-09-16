@@ -1,5 +1,5 @@
 import { GrafanaItem } from "../items/GrafanaItem.js";
-import { addTypeNameToInclude, addTypesToInclude, getMetaClassInfo, hasPrototype, setGetter, setGetterAndSetter, setPrototype, setSetter } from "./typesReference.js";
+import { addOnInit, addSignature, addTypeNameToInclude, addTypesToInclude, setGetterAndSetterWithSignature, setGetterWithSignature, setPrototypeWithSignature, setSetterWithSignature } from "./typesReference.js";
 
 /**
  * @typedef {import("@gdacm/base-types").GenericMetaOptions} GenericMetaOptions
@@ -8,12 +8,6 @@ import { addTypeNameToInclude, addTypesToInclude, getMetaClassInfo, hasPrototype
 /**
  * @template T
  * @typedef {import("@gdacm/base-types").MetaConstructor<T>} MetaConstructor
- */
-
-/**
- * @template {Object} T
- * @template {T} C
- * @typedef {import("./MetaClassRegistry.js").MetaClassInfo<T,C>} MetaClassInfo
  */
 
 /**
@@ -28,36 +22,30 @@ import { addTypeNameToInclude, addTypesToInclude, getMetaClassInfo, hasPrototype
  * @param {String} [option.typeName]
  */
 export function defineValue(cls, key, type, option) {
-    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
-    addTypeNameToInclude(metaClassInfo, type.name);
-    const setName = `set${caseName}`;
+    addTypeNameToInclude(cls, type.name);
 
-    if (!hasPrototype(cls, setName)) {
-        setPrototype(cls, setName,
-            /**
-             * @this GrafanaItem
-             * @template T
-             * @param {T} value
-             * @returns {GrafanaItem}
-             */
-            function (value) {
-                return this._setValue(key, value);
-            }
-        )
-        metaClassInfo.methods.push(`${setName}(${name}: ${typeName}): this;`);
-    }
-    if (option?.onInit) {
-        metaClassInfo.onInits.push(option.onInit);
-    }
+    setPrototypeWithSignature(
+        cls,
+        `set${caseName}`,
+        `(${name}: ${typeName}): this;`,
+        /**
+         * @this C
+         * @template T
+         * @param {T} value
+         * @returns {C}
+         */
+        function (value) {
+            return this._setValue(key, value);
+        }
+    )
+
+    addOnInit(cls, option?.onInit);
+
     if (option?.onDefault) {
-        metaClassInfo.onInits.push(
-            function (instance) {
-                instance._setValue(key, option?.onDefault?.(instance.metaOptions));
-            }
-        );
+        addOnInit(cls, (instance) => instance._setValue(key, option?.onDefault?.(instance.metaOptions)));
     }
 }
 
@@ -73,63 +61,51 @@ export function defineValue(cls, key, type, option) {
  * @param {String} [option.typeName]
  */
 export function defineBasicObject(cls, key, type, option) {
-    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
-    addTypeNameToInclude(metaClassInfo, type.name);
+    addTypeNameToInclude(cls, type.name);
 
-    const setName = `set${caseName}`;
-    if (hasPrototype(cls, setName) === false) {
-        setPrototype(cls, setName,
-            /**
-             * @this GrafanaItem
-             * @template T
-             * @param {T} value
-             * @returns {GrafanaItem}
-             */
-            function (value) {
-                return this._setObject(key, value);
-            }
-        );
-        metaClassInfo.methods.push(`${setName}(${name}: ${typeName}): this;`);
-    }
-
-    const withName = `with${caseName}`;
-    {
-        setPrototype(cls, withName,
-            /**
-             * @this GrafanaItem
-             * @template {GrafanaItem} T
-             * @param {(item: T) => void} onWith
-             * @returns {GrafanaItem}
-             */
-            function (onWith) {
-                const item = this._getObject(key);
-                if (item) {
-                    onWith(item);
-                }
-                return this;
-            }
-        );
-        metaClassInfo.methods.push(`with${caseName}(onWith: (item: ${typeName}) => void): this;`);
-    }
-    {
-        setGetter(cls, name, (self) => self._getObject(key));
-        metaClassInfo.methods.push(`get ${name}(): ${typeName};`);
-    }
-
-    if (option?.onInit) {
-        metaClassInfo.onInits.push(option?.onInit);
-    }
-    if (option?.onDefault) {
+    setPrototypeWithSignature(
+        cls,
+        `set${caseName}`,
+        `(${name}: ${typeName}): this;`,
         /**
-         * @param {GrafanaItem} instance
+         * @this C
+         * @template T
+         * @param {T} value
+         * @returns {C}
          */
-        const onInit = (instance) => {
-            instance._setObject(key, option?.onDefault?.(instance.metaOptions));
+        function (value) {
+            return this._setObject(key, value);
         }
-        metaClassInfo.onInits.push(onInit);
+    );
+
+    setPrototypeWithSignature(
+        cls,
+        `with${caseName}`,
+        `(onWith: (item: ${typeName}) => void): this;`,
+        /**
+         * @this C
+         * @template {GrafanaItem} T
+         * @param {(item: T) => void} onWith
+         * @returns {C}
+         */
+        function (onWith) {
+            const item = this._getObject(key);
+            if (item) {
+                onWith(item);
+            }
+            return this;
+        }
+    );
+
+    setGetterWithSignature(cls, name, (self) => self._getObject(key), typeName);
+
+    addOnInit(cls, option?.onInit);
+
+    if (option?.onDefault) {
+        addOnInit(cls, (instance) => instance._setObject(key, option?.onDefault?.(instance.metaOptions)))
     }
 }
 
@@ -146,80 +122,69 @@ export function defineBasicObject(cls, key, type, option) {
  * @param {String} [option.typeName]
  */
 export function defineObject(cls, key, type, option) {
-    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
-    addTypeNameToInclude(metaClassInfo, type.name);
+    addTypeNameToInclude(cls, type.name);
 
-    const setName = `set${caseName}`;
-    if (hasPrototype(cls, setName) === false) {
-        setPrototype(cls, setName,
-            /**
-             * @this GrafanaItem
-             * @param {T} value
-             * @returns {GrafanaItem}
-             */
-            function (value) {
-                return this._setGrafanaObject(key, type, value);
-            }
-        );
-        metaClassInfo.methods.push(`${setName}(${name}: ${typeName}): this;`);
-    }
-
-    const setNewName = `setNew${caseName}`;
-    {
-        setPrototype(cls, setNewName,
-            /**
-             * @this GrafanaItem
-             * @param {(item: T) => T} [onNewCreated]
-             * @returns {GrafanaItem}
-             */
-            function (onNewCreated) {
-                if (!onNewCreated) {
-                    onNewCreated = (item) => item;
-                }
-                return this._setGrafanaObject(key, type, onNewCreated(new type(this.metaOptions)));
-            }
-        );
-        metaClassInfo.methods.push(`${setNewName}(onNewCreated: ((item: ${typeName}) => ${typeName}) | undefined): this;`);
-    }
-
-    const withName = `with${caseName}`;
-    {
-        setPrototype(cls, withName,
-            /**
-             * @this GrafanaItem
-             * @param {(item: T) => void} onWith
-             * @returns {GrafanaItem}
-             */
-            function (onWith) {
-                const item = this._getGrafanaObject(key, type);
-                if (item) {
-                    onWith(item);
-                }
-                return this;
-            }
-        );
-        metaClassInfo.methods.push(`with${caseName}(onWith: (item: ${typeName}) => void): this;`);
-    }
-    {
-        setGetter(cls, name, (self) => self._getGrafanaObject(key, type));
-        metaClassInfo.methods.push(`get ${name}(): ${typeName};`);
-    }
-
-    if (option?.onInit) {
-        metaClassInfo.onInits.push(option?.onInit);
-    }
-    if (option?.onDefault) {
+    setPrototypeWithSignature(
+        cls,
+        `set${caseName}`,
+        `(${name}: ${typeName}): this;`,
         /**
-         * @param {GrafanaItem} instance
+         * @this C
+         * @param {T} value
+         * @returns {C}
          */
-        const onInit = (instance) => {
+        function (value) {
+            return this._setGrafanaObject(key, type, value);
+        }
+    );
+
+    setPrototypeWithSignature(
+        cls,
+        `setNew${caseName}`,
+        `(onNewCreated: ((item: ${typeName}) => ${typeName}) | undefined): this;`,
+        /**
+         * @this C
+         * @param {(item: T) => T} [onNewCreated]
+         * @returns {C}
+         */
+        function (onNewCreated) {
+            if (!onNewCreated) {
+                onNewCreated = (item) => item;
+            }
+            return this._setGrafanaObject(key, type, onNewCreated(new type(this.metaOptions)));
+        }
+    );
+
+    setPrototypeWithSignature(
+        cls,
+        `with${caseName}`,
+        `(onWith: (item: ${typeName}) => void): this;`,
+        /**
+         * @this C
+         * @param {(item: T) => void} onWith
+         * @returns {C}
+         */
+        function (onWith) {
+            const item = this._getGrafanaObject(key, type);
+            if (item) {
+                onWith(item);
+            }
+            return this;
+        }
+    )
+
+    setGetterWithSignature(cls, name, (self) => self._getGrafanaObject(key, type), typeName);
+
+    addOnInit(cls, option?.onInit);
+
+    if (option?.onDefault) {
+        addOnInit(cls, (instance) => {
             const x = option?.onDefault?.(instance.metaOptions)
             instance._setGrafanaObject(key, type, x);
-        }
-        metaClassInfo.onInits.push(onInit);
+        });
     }
 }
 
@@ -237,102 +202,86 @@ export function defineObject(cls, key, type, option) {
  * @param {(metaOptions: GenericMetaOptions) => T[]} [option.onDefault]
  */
 export function defineArray(cls, key, type, option) {
-    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
-    addTypeNameToInclude(metaClassInfo, type.name);
+    addTypeNameToInclude(cls, type.name);
     const caseItemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
 
-    const initName = `init${caseName}`;
-    {
-        if (hasPrototype(cls, initName) === false) {
-            setPrototype(cls, initName,
-                /**
-                 * @this GrafanaItem
-                 * @returns {GrafanaItem}
-                 */
-                function () {
-                    return this._initArray(key);
-                }
-            );
-            metaClassInfo.methods.push(`init${caseName}(): this;`);
-        }
-    }
-    {
-        setGetter(cls, name, (self) => self._getArray(key));
-        metaClassInfo.methods.push(`get ${name}(): ${type.name}[];`);
-    }
-    const addName = `add${caseItemName}`;
-    {
-        if (hasPrototype(cls, addName) === false) {
-            setPrototype(cls, addName,
-                /**
-                 * @this GrafanaItem
-                 * @param {T} item
-                 * @returns {GrafanaItem}
-                 */
-                function (item) {
-                    return this._addArrayItem(key, item);
-                }
-            );
-            metaClassInfo.methods.push(`${addName}(${itemName}: ${type.name}): this;`);
-        }
-    }
-    const addNewName = `addNew${caseItemName}`;
-    {
-        if (hasPrototype(cls, addNewName) === false) {
-            setPrototype(cls, addNewName,
-                /**
-                 * @this GrafanaItem
-                 * @param {(item: T) => T} onNewCreated
-                 * @returns {GrafanaItem}
-                 */
-                function (onNewCreated) {
-                    return this._addArrayItem(key, onNewCreated(new type(this.metaOptions)));
-                }
-            );
-            metaClassInfo.methods.push(`${addNewName}(onNewCreated: (item: ${type.name}) => ${type.name}): this;`);
-        }
-    }
-    const withName = `with${caseName}`;
-    {
-        setPrototype(cls, withName,
-            /**
-             * @this GrafanaItem
-             * @param {(array: T[]) => void} onWith
-             * @returns {GrafanaItem}
-             */
-            function (onWith) {
-                const array = this._getArray(key);
-                if (array) {
-                    onWith(array);
-                }
-                return this;
-            }
-        );
-        metaClassInfo.methods.push(`${withName}(onWith: (${name}: ${type.name}[]) => void): this;`);
-    }
-    if (option?.onInit) {
-        metaClassInfo.onInits.push(option.onInit);
-    }
-    if (option?.onDefault) {
-        metaClassInfo.onInits.push(
-            (instance) => option.onDefault
-                ?.(instance.metaOptions)
-                ?.forEach(
-                    item => instance._addArrayItem(key, item)
-                )
-        );
-    }
-    if (option?.setEmpty) {
+    setPrototypeWithSignature(
+        cls,
+        `init${caseName}`,
+        `(): this;`,
         /**
-         * @param {GrafanaItem} instance
+         * @this C
+         * @returns {C}
          */
-        const onInitArray = (instance) => {
-            instance._initArray(key);
+        function () {
+            return this._initArray(key);
         }
-        metaClassInfo.onInits.push(onInitArray);
+    )
+
+    setGetterWithSignature(cls, name, (self) => self._getArray(key), `${type.name}[]`);
+
+    setPrototypeWithSignature(
+        cls,
+        `add${caseItemName}`,
+        `(${itemName}: ${type.name}): this;`,
+        /**
+         * @this C
+         * @param {T} item
+         * @returns {C}
+         */
+        function (item) {
+            return this._addArrayItem(key, item);
+        }
+    );
+
+    setPrototypeWithSignature(
+        cls,
+        `addNew${caseItemName}`,
+        `(onNewCreated: (item: ${type.name}) => ${type.name}): this;`,
+        /**
+         * @this C
+         * @param {(item: T) => T} onNewCreated
+         * @returns {C}
+         */
+        function (onNewCreated) {
+            return this._addArrayItem(key, onNewCreated(new type(this.metaOptions)));
+        }
+    );
+
+    setPrototypeWithSignature(
+        cls,
+        `with${caseName}`,
+        `(onWith: (${name}: ${type.name}[]) => void): this;`,
+        /**
+         * @this C
+         * @param {(array: T[]) => void} onWith
+         * @returns {C}
+         */
+        function (onWith) {
+            const array = this._getArray(key);
+            if (array) {
+                onWith(array);
+            }
+            return this;
+        }
+    )
+
+    addOnInit(cls, option?.onInit);
+
+    if (option?.onDefault) {
+        addOnInit(cls, (instance) => option.onDefault
+            ?.(instance.metaOptions)
+            ?.forEach(
+                item => instance._addArrayItem(key, item)
+            )
+        );
+    }
+
+    if (option?.setEmpty) {
+        addOnInit(cls, (instance) => instance._initArray(key));
     }
 }
 
@@ -349,87 +298,74 @@ export function defineArray(cls, key, type, option) {
  * @param {(metaOptions: GenericMetaOptions) => Object[]} [option.onDefault]
  */
 export function defineBasicArray(cls, key, type, option) {
-    const metaClassInfo = getMetaClassInfo(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
-    addTypeNameToInclude(metaClassInfo, type.name);
+    addTypeNameToInclude(cls, type.name);
     const caseItemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
 
-    const initName = `init${caseName}`;
-    {
-        if (hasPrototype(cls, initName) === false) {
-            setPrototype(cls, initName,
-                /**
-                 * @this GrafanaItem
-                 * @returns {GrafanaItem}
-                 */
-                function () {
-                    return this._initArray(key);
-                }
-            );
-            metaClassInfo.methods.push(`init${caseName}(): this;`);
-        }
-    }
-    {
-        setGetter(cls, name, (self) => self._getArray(key));
-        metaClassInfo.methods.push(`get ${name}(): ${type.name}[];`);
-    }
-    const addName = `add${caseItemName}`;
-    {
-        if (hasPrototype(cls, addName) === false) {
-            setPrototype(cls, addName,
-                /**
-                 * @this GrafanaItem
-                 * @param {unknown} item
-                 * @returns {GrafanaItem}
-                 */
-                function (item) {
-                    return this._addArrayItem(key, item);
-                }
-            );
-            metaClassInfo.methods.push(`${addName}(${itemName}: ${type.name}): this;`);
-        }
-    }
-    const withName = `with${caseName}`;
-    {
-        setPrototype(cls, withName,
-            /**
-             * @this GrafanaItem
-             * @template T
-             * @param {(array: T[]) => void} onWith
-             * @returns {GrafanaItem}
-             */
-            function (onWith) {
-                const array = this._getArray(key);
-                if (array) {
-                    onWith(array);
-                }
-                return this;
-            }
-        );
-        metaClassInfo.methods.push(`${withName}(onWith: (${name}: ${type.name}[]) => void): this;`);
-    }
-    if (option?.onInit) {
-        metaClassInfo.onInits.push(option.onInit);
-    }
-    if (option?.onDefault) {
-        metaClassInfo.onInits.push(
-            (instance) => option.onDefault
-                ?.(instance.metaOptions)
-                ?.forEach(
-                    item => instance._addArrayItem(key, item)
-                )
-        );
-    }
-    if (option?.setEmpty) {
+    setPrototypeWithSignature(
+        cls,
+        `init${caseName}`,
+        `(): this;`,
         /**
-         * @param {GrafanaItem} instance
+         * @this C
+         * @returns {C}
          */
-        const onInitArray = (instance) => {
-            instance._initArray(key);
+        function () {
+            return this._initArray(key);
         }
-        metaClassInfo.onInits.push(onInitArray);
+    )
+
+    setGetterWithSignature(cls, name, (self) => self._getArray(key), `${type.name}[]`);
+
+    setPrototypeWithSignature(
+        cls,
+        `add${caseItemName}`,
+        `(${itemName}: ${type.name}): this;`,
+        /**
+         * @this C
+         * @template T
+         * @param {T} item
+         * @returns {C}
+         */
+        function (item) {
+            return this._addArrayItem(key, item);
+        }
+    )
+
+    setPrototypeWithSignature(
+        cls,
+        `with${caseName}`,
+        `(onWith: (${name}: ${type.name}[]) => void): this;`,
+        /**
+         * @this C
+         * @template T
+         * @param {(array: T[]) => void} onWith
+         * @returns {C}
+         */
+        function (onWith) {
+            const array = this._getArray(key);
+            if (array) {
+                onWith(array);
+            }
+            return this;
+        }
+    )
+
+    addOnInit(cls, option?.onInit);
+
+    if (option?.onDefault) {
+        addOnInit(cls, (instance) => option.onDefault
+            ?.(instance.metaOptions)
+            ?.forEach(
+                item => instance._addArrayItem(key, item)
+            )
+        )
+    }
+
+    if (option?.setEmpty) {
+        addOnInit(cls, (instance) => instance._initArray(key));
     }
 }
 
@@ -439,11 +375,8 @@ export function defineBasicArray(cls, key, type, option) {
  * @param {(instance: C) => void} code
  */
 export function defineConstructor(cls, code) {
-    const constr = code;
-
-    const metaClassInfo = getMetaClassInfo(cls);
-    metaClassInfo.methods.push('constructor(metaOptions: GenericMetaOptions)');
-    metaClassInfo.onInits.push((instance) => constr(instance));
+    addSignature(cls, 'constructor(metaOptions: GenericMetaOptions)');
+    addOnInit(cls, (instance) => code(instance))
 }
 
 
@@ -456,9 +389,8 @@ export function defineConstructor(cls, code) {
  */
 export function defineMember(cls, method, option) {
     const { typesToInclude } = option || {};
-    const metaClassInfo = getMetaClassInfo(cls);
-    metaClassInfo.methods.push(method);
-    addTypesToInclude(metaClassInfo, typesToInclude);
+    addSignature(cls, method);
+    addTypesToInclude(cls, typesToInclude);
 }
 
 
@@ -477,26 +409,21 @@ export const defineMethod = (cls, name, args, option) => {
         code,
     } = option || {};
 
-    const metaClassInfo = getMetaClassInfo(cls);
-    metaClassInfo.methods.push(`${name}${args}`);
-    addTypesToInclude(metaClassInfo, typesToInclude);
+    addTypesToInclude(cls, typesToInclude);
 
-    if (code !== undefined) {
-        if (!name) {
-            throw new Error("You must provide a name when providing code.");
+    setPrototypeWithSignature(
+        cls,
+        name,
+        args,
+        /**
+         * @this {C}
+         * @param  {...any} args
+         * @returns {any}
+         */
+        function (...args) {
+            return code(this, ...args);
         }
-
-        setPrototype(cls, name,
-            /**
-             * @this {C}
-             * @param  {...any} args
-             * @returns {any}
-             */
-            function (...args) {
-                return code(this, ...args);
-            }
-        )
-    }
+    )
 }
 
 /**
@@ -515,29 +442,20 @@ export function defineGetterSetter(cls, name, typeName, option) {
         getter,
         setter,
     } = option || {};
-    const metaClassInfo = getMetaClassInfo(cls);
-    addTypesToInclude(metaClassInfo, typesToInclude);
+    addTypesToInclude(cls, typesToInclude);
 
     if (getter !== undefined) {
         if (setter !== undefined) {
-            setGetterAndSetter(cls, name, getter, setter);
+            setGetterAndSetterWithSignature(cls, name, getter, setter, typeName);
         } else {
-            setGetter(cls, name, getter);
+            setGetterWithSignature(cls, name, getter, typeName);
         }
     } else {
         if (setter !== undefined) {
-            setSetter(cls, name, setter);
+            setSetterWithSignature(cls, name, setter, typeName);
         } else {
             throw new Error("You must provide either a getter or a setter.");
         }
-    }
-
-    if (getter !== undefined) {
-        metaClassInfo.methods.push(`get ${name}(): ${typeName};`)
-    }
-
-    if (setter !== undefined) {
-        metaClassInfo.methods.push(`set ${name}(value: ${typeName});`)
     }
 }
 

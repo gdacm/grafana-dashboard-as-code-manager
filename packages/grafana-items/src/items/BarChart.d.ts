@@ -8,6 +8,7 @@ export declare class BarChart extends Panel {
     constructor(metaOptions: GenericMetaOptions)
     get custom(): FieldConfigCustomBarChart;
     withCustom(code: (custom: FieldConfigCustomBarChart) => void): this
+    setOptions(options: PanelOptionsBarChart): this;
     setNewOptions(onNewCreated: ((item: PanelOptionsBarChart) => PanelOptionsBarChart) | undefined): this;
     withOptions(onWith: (item: PanelOptionsBarChart) => void): this;
     get options(): PanelOptionsBarChart;

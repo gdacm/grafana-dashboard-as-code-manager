@@ -59,7 +59,7 @@ const getPrototype = (cls) => (/** @type {Record<string, unknown>} */(cls.protot
  * @param {MetaConstructor<C>} cls
  * @param {string} name 
  */
-export function hasPrototype(cls, name) {
+function hasPrototype(cls, name) {
     return getPrototype(cls)[name] !== undefined;
 }
 
@@ -69,7 +69,7 @@ export function hasPrototype(cls, name) {
  * @param {string} name 
  * @param {Function} value 
  */
-export function setPrototype(cls, name, value) {
+function setPrototype(cls, name, value) {
     getPrototype(cls)[name] = value;
 }
 
@@ -79,7 +79,7 @@ export function setPrototype(cls, name, value) {
  * @param {string} name 
  * @param {(self: C) => any} getter 
  */
-export function setGetter(cls, name, getter) {
+function setGetter(cls, name, getter) {
     Object.defineProperty(cls.prototype, name, {
         get() {
             return getter(this);
@@ -95,7 +95,7 @@ export function setGetter(cls, name, getter) {
  * @param {string} name 
  * @param {(instance: C, value: any) => void} setter 
  */
-export function setSetter(cls, name, setter) {
+function setSetter(cls, name, setter) {
     Object.defineProperty(cls.prototype, name, {
         set(value) {
             return setter(this, value);
@@ -112,7 +112,7 @@ export function setSetter(cls, name, setter) {
  * @param {(self: C) => any} getter 
  * @param {(instance: C, value: any) => void} setter 
  */
-export function setGetterAndSetter(cls, name, getter, setter) {
+function setGetterAndSetter(cls, name, getter, setter) {
     Object.defineProperty(cls.prototype, name, {
         get() {
             return getter(this);
@@ -127,10 +127,11 @@ export function setGetterAndSetter(cls, name, getter, setter) {
 
 /**
  * @template {GrafanaItem} C
- * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
+ * @param {MetaConstructor<C>} cls 
  * @param {string} typeName
  */
-export const addTypeNameToInclude = (metaClassInfo, typeName) => {
+export const addTypeNameToInclude = (cls, typeName) => {
+    const metaClassInfo = getMetaClassInfo(cls);
     if (metaClassInfo.typeNamesToInclude.includes(typeName) === false) {
         if (['String', 'Number', 'Boolean', 'Array', 'Object'].indexOf(typeName) === -1) {
             metaClassInfo.typeNamesToInclude.push(typeName);
@@ -140,16 +141,101 @@ export const addTypeNameToInclude = (metaClassInfo, typeName) => {
 
 /**
  * @template {GrafanaItem} C
- * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
+ * @param {MetaConstructor<C>} cls 
  * @param {(typeof GrafanaItem)[]} [typesToInclude]
  */
-export const addTypesToInclude = (metaClassInfo, typesToInclude) => {
+export const addTypesToInclude = (cls, typesToInclude) => {
     if (typesToInclude !== undefined) {
         for (const type of typesToInclude) {
-            addTypeNameToInclude(metaClassInfo, type.name);
+            addTypeNameToInclude(cls, type.name);
         }
     }
 }
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
+ * @param {string} signature 
+ */
+const addSignatureOnMetaClassInfo = (metaClassInfo, signature) => {
+    if (metaClassInfo.methods.includes(signature) === false) {
+        metaClassInfo.methods.push(signature);
+    }
+}
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls
+ * @param {string} signature 
+ */
+export const addSignature = (cls, signature) => {
+    const metaClassInfo = getMetaClassInfo(cls);
+    addSignatureOnMetaClassInfo(metaClassInfo, signature);
+}
+
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls
+ * @param {string} name 
+ * @param {string} postSignature
+ * @param {Function} value 
+ */
+export const setPrototypeWithSignature = (cls, name, postSignature, value) => {
+    setPrototype(cls, name, value);
+    addSignature(cls, `${name}${postSignature}`);
+};
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls 
+ * @param {string} name 
+ * @param {(self: C) => any} getter 
+ * @param {(instance: C, value: any) => void} setter 
+ * @param {string} typeName
+ */
+export function setGetterAndSetterWithSignature(cls, name, getter, setter, typeName) {
+    setGetterAndSetter(cls, name, getter, setter);
+    addSignature(cls, `get ${name}(): ${typeName};`);
+    addSignature(cls, `set ${name}(value: ${typeName});`);
+}
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls 
+ * @param {string} name 
+ * @param {(self: C) => any} getter 
+ * @param {string} typeName
+ */
+export function setGetterWithSignature(cls, name, getter, typeName) {
+    setGetter(cls, name, getter);
+    addSignature(cls, `get ${name}(): ${typeName};`);
+}
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls 
+ * @param {string} name 
+ * @param {(instance: C, value: any) => void} setter 
+ * @param {string} typeName
+ */
+export function setSetterWithSignature(cls, name, setter, typeName) {
+    setSetter(cls, name, setter);
+    addSignature(cls, `set ${name}(value: ${typeName});`);
+}
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls 
+ * @param {((instance: C) => void)|undefined} onInit
+ */
+export function addOnInit(cls, onInit) {
+    const metaClassInfo = getMetaClassInfo(cls);
+    if (onInit) {
+        metaClassInfo.onInits.push(onInit);
+    }
+}
+
 
 /**
  * @template {GrafanaItem} C

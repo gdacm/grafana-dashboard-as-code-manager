@@ -17,7 +17,6 @@ import { getMetaClassInfo, hasType, setTypeMetaClassInfo } from "./typesReferenc
  * @typedef {import("@gdacm/base-types").MetaConstructor<T>} MetaConstructor
  */
 
-
 /**
  * @template {GrafanaItem} C
  */
@@ -213,7 +212,7 @@ export function defineClass(cls) {
         if (parent && !parent.name) {
             parent = undefined;
         }
-        /** @type {((instance: GrafanaItem)=>void)[]} */
+        /** @type {((instance: C)=>void)[]} */
         let onInitsParent = [];
         if (parent && parent.name) {
             // @ts-ignore

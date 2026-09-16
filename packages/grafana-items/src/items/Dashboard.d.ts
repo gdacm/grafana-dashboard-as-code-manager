@@ -22,9 +22,9 @@ export declare class Dashboard extends GrafanaItem {
     addNewLink(onNewCreated: (item: Link) => Link): this;
     withLinks(onWith: (links: Link[]) => void): this;
     setLiveNow(liveNow: Boolean): this;
-    addPanel(panel: Panel): this;
     initPanels(): this;
     get panels(): Panel[];
+    addPanel(panel: Panel): this;
     addNewPanel(onNewCreated: (item: Panel) => Panel): this;
     withPanels(onWith: (panels: Panel[]) => void): this;
     setPreload(preload: Boolean): this;
