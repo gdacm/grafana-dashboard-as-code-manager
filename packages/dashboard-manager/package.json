@@ -1,6 +1,6 @@
 {
   "name": "@gdacm/dashboard-manager",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "author": "gissehel",
   "type": "module",
   "module": "./dist/index.js",
