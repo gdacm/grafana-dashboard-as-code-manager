@@ -3,5 +3,5 @@ import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const OverrideMatcher = defineGrafanaItemClass('OverrideMatcher', GrafanaItem)
     .defineValue('id', String)
-    .defineObject('options', Object)
+    .defineBasicObject('options', Object)
     .asClass

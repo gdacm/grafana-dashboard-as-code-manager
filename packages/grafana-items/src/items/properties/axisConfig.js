@@ -17,7 +17,7 @@ export const defineAxisConfig = (builder) => {
         .defineValue('axisSoftMax', Number)
         .defineValue('axisSoftMin', Number)
         .defineValue('axisWidth', Number)
-        .defineGrafanaObject('scaleDistribution', ScaleDistribution, {
+        .defineObject('scaleDistribution', ScaleDistribution, {
             onDefault: (options) => new ScaleDistribution(options).setType('linear'),
         })
 }

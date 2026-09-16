@@ -201,7 +201,7 @@ export function defineValue(cls, key, type, option) {
  * @param {(metaOptions: GenericMetaOptions) => unknown} [option.onDefault]
  * @param {String} [option.typeName]
  */
-export function defineObject(cls, key, type, option) {
+export function defineBasicObject(cls, key, type, option) {
     const metaClassInfo = types.get(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -274,7 +274,7 @@ export function defineObject(cls, key, type, option) {
  * @param {(metaOptions: GenericMetaOptions) => T} [option.onDefault]
  * @param {String} [option.typeName]
  */
-export function defineGrafanaObject(cls, key, type, option) {
+export function defineObject(cls, key, type, option) {
     const metaClassInfo = types.get(cls);
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -632,13 +632,13 @@ export const defineMethod = (cls, name, args, option) => {
  * @template {GrafanaItem} C
  * @param {MetaConstructor<C>} cls 
  * @param {string} name
- * @param {string} getterSetterType
+ * @param {string} typeName
  * @param {Object} option
  * @param {(typeof GrafanaItem)[]} [option.typesToInclude]
  * @param {(self: C) => any} [option.getter]
  * @param {(self: C, value: any) => void} [option.setter]
  */
-export function defineGetterSetter(cls, name, getterSetterType, option) {
+export function defineGetterSetter(cls, name, typeName, option) {
     const {
         typesToInclude,
         getter,
@@ -662,11 +662,11 @@ export function defineGetterSetter(cls, name, getterSetterType, option) {
     }
 
     if (getter !== undefined) {
-        metaClassInfo.methods.push(`get ${name}(): ${getterSetterType};`)
+        metaClassInfo.methods.push(`get ${name}(): ${typeName};`)
     }
 
     if (setter !== undefined) {
-        metaClassInfo.methods.push(`set ${name}(value: ${getterSetterType});`)
+        metaClassInfo.methods.push(`set ${name}(value: ${typeName});`)
     }
 }
 

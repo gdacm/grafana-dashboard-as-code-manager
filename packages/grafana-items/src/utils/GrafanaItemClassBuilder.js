@@ -1,5 +1,5 @@
 import { GrafanaItem } from "../items/GrafanaItem.js";
-import { defineValue, defineObject, defineGrafanaObject, defineArray, defineBasicArray, defineConstructor, hasType, setTypeMetaClassInfo, getMetaClassInfo, defineMember, defineMethod, defineGetterSetter } from "./typesDefinition.js";
+import { defineValue, defineBasicObject, defineObject, defineArray, defineBasicArray, defineConstructor, hasType, setTypeMetaClassInfo, getMetaClassInfo, defineMember, defineMethod, defineGetterSetter } from "./typesDefinition.js";
 
 /**
  * @typedef {import("@gdacm/base-types").GenericMetaOptions} GenericMetaOptions
@@ -61,21 +61,6 @@ export class GrafanaItemClassBuilder {
     }
 
     /**
-     * @param {string} key 
-     * @param {Function} type 
-     * @param {Object} [option]
-     * @param {string} [option.name]
-     * @param {(instance: C) => void} [option.onInit]
-     * @param {(metaOptions: GenericMetaOptions) => Object} [option.onDefault]
-     * @param {String} [option.typeName]
-     * @return {this}
-     */
-    defineObject(key, type, option) {
-        defineObject(this.cls, key, type, option);
-        return this;
-    }
-
-    /**
      * @template {GrafanaItem} T
      * @param {string} key 
      * @param {MetaConstructor<T>} type 
@@ -87,8 +72,23 @@ export class GrafanaItemClassBuilder {
      * @param {String} [option.setNew]
      * @return {this}
      */
-    defineGrafanaObject(key, type, option) {
-        defineGrafanaObject(this.cls, key, type, option);
+    defineObject(key, type, option) {
+        defineObject(this.cls, key, type, option);
+        return this;
+    }
+
+    /**
+     * @param {string} key 
+     * @param {Function} type 
+     * @param {Object} [option]
+     * @param {string} [option.name]
+     * @param {(instance: C) => void} [option.onInit]
+     * @param {(metaOptions: GenericMetaOptions) => Object} [option.onDefault]
+     * @param {String} [option.typeName]
+     * @return {this}
+     */
+    defineBasicObject(key, type, option) {
+        defineBasicObject(this.cls, key, type, option);
         return this;
     }
 
@@ -108,7 +108,6 @@ export class GrafanaItemClassBuilder {
         defineArray(this.cls, key, type, option);
         return this;
     }
-
 
     /**
      * @param {string} key 
@@ -161,15 +160,15 @@ export class GrafanaItemClassBuilder {
 
     /**
      * @param {string} name
-     * @param {string} type
+     * @param {string} typeName
      * @param {Object} option
      * @param {(typeof GrafanaItem)[]} [option.typesToInclude]
      * @param {(instance: C) => any} [option.getter]
      * @param {(instance: C, value: any) => void} [option.setter]
      * @return {this}
      */
-    defineGetterSetter(name, type, option) {
-        defineGetterSetter(this.cls, name, type, option);
+    defineGetterSetter(name, typeName, option) {
+        defineGetterSetter(this.cls, name, typeName, option);
         return this;
     }
 

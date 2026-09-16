@@ -4,7 +4,7 @@ import { Datasource } from "./Datasource.js";
 
 export const Annotation = defineGrafanaItemClass('Annotation', GrafanaItem)
     .defineValue('builtIn', Number)
-    .defineGrafanaObject('datasource', Datasource)
+    .defineObject('datasource', Datasource)
     .defineValue('enable', Boolean)
     .defineValue('hide', Boolean)
     .defineValue('iconColor', String)

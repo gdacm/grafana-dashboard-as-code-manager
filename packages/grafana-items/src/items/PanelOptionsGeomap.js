@@ -7,9 +7,9 @@ import { PanelOptionsGeomapTooltip } from "./PanelOptionsGeomapTooltip.js";
 import { PanelOptionsGeomapView } from "./PanelOptionsGeomapView.js";
 
 export const PanelOptionsGeomap = defineGrafanaItemClass('PanelOptionsGeomap', PanelOptions)
-    .defineGrafanaObject('basemap', PanelOptionsGeomapBasemap)
-    .defineGrafanaObject('controls', PanelOptionsGeomapControls)
+    .defineObject('basemap', PanelOptionsGeomapBasemap)
+    .defineObject('controls', PanelOptionsGeomapControls)
     .defineArray('layers', PanelOptionsGeomapLayer)
-    .defineGrafanaObject('tooltip', PanelOptionsGeomapTooltip)
-    .defineGrafanaObject('view', PanelOptionsGeomapView)
+    .defineObject('tooltip', PanelOptionsGeomapTooltip)
+    .defineObject('view', PanelOptionsGeomapView)
     .asClass

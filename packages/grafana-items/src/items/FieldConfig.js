@@ -6,7 +6,7 @@ import { OverrideMatcherOptionsByNames } from "./OverrideMatcherOptionsByNames.j
 import { HideFrom } from "./HideFrom.js";
 
 export const FieldConfig = defineGrafanaItemClass('FieldConfig', GrafanaItem)
-    .defineGrafanaObject('defaults', FieldConfigDefault)
+    .defineObject('defaults', FieldConfigDefault)
     .defineArray('overrides', FieldConfigOverride)
     .defineMethod('addNewOverrideHideSeriesFrom', '(names: string[]): this', {
         /**

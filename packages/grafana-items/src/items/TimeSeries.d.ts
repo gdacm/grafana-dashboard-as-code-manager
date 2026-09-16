@@ -11,5 +11,5 @@ export declare class TimeSeries extends Panel {
     setNewOptions(onNewCreated: ((item: PanelOptionsTimeSeries) => PanelOptionsTimeSeries) | undefined): this;
     withOptions(onWith: (item: PanelOptionsTimeSeries) => void): this;
     get options(): PanelOptionsTimeSeries;
-    setThresholdsStyleArea(): this
+    setThresholdsStyleMode(mode: string): this
 }

@@ -9,10 +9,10 @@ import { DataTransformation } from "./DataTransformation.js";
 
 export const Panel = defineGrafanaItemClass('Panel', GrafanaItem)
     .defineValue('cacheTimeout', String)
-    .defineGrafanaObject('datasource', Datasource, { onDefault: (options) => undefined })
+    .defineObject('datasource', Datasource, { onDefault: (options) => undefined })
     .defineValue('description', String)
-    .defineGrafanaObject('fieldConfig', FieldConfig, { onDefault: (options) => new FieldConfig(options) })
-    .defineGrafanaObject('gridPos', GridPos)
+    .defineObject('fieldConfig', FieldConfig, { onDefault: (options) => new FieldConfig(options) })
+    .defineObject('gridPos', GridPos)
     .defineMethod('setPos', '(x: number, y: number, w: number, h: number): this;', {
         /**
          * @param {Panel} panel
@@ -31,7 +31,7 @@ export const Panel = defineGrafanaItemClass('Panel', GrafanaItem)
     .defineArray('links', Link)
     .defineValue('maxDataPoints', Number)
     .defineValue('maxPerRow', Number)
-    .defineGrafanaObject('options', Object)
+    .defineObject('options', Object)
     .defineValue('pluginVersion', String)
     .defineValue('queryCachingTTL', Number)
     .defineValue('repeat', String)

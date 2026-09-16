@@ -3,7 +3,7 @@ import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { PanelOptionsTextCode } from "./PanelOptionsTextCode.js";
 
 export const PanelOptionsText = defineGrafanaItemClass('PanelOptionsText', PanelOptions)
-    .defineGrafanaObject('code', PanelOptionsTextCode, {
+    .defineObject('code', PanelOptionsTextCode, {
         onDefault: (options) => new PanelOptionsTextCode(options)
     })
     .defineValue('content', String)

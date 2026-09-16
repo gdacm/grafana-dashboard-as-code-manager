@@ -11,9 +11,13 @@ export const TimeSeries = defineGrafanaItemClass('TimeSeries', Panel)
             instance.fieldConfig.defaults.thresholds.setMode('absolute');
         },
     }))
-    .defineMethod('setThresholdsStyleArea', '(): this', {
-        code: (instance) => {
-            instance.custom.thresholdsStyle.setMode('area');
+    .defineMethod('setThresholdsStyleMode', '(mode: string): this', {
+        /**
+         * @param {TimeSeries} instance 
+         * @returns 
+         */
+        code: (instance, mode) => {
+            instance.custom.thresholdsStyle.setMode(mode);
             return instance;
         }
     })

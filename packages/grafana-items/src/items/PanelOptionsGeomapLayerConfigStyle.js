@@ -8,11 +8,11 @@ import { StyleSymbolAlign } from "./StyleSymbolAlign.js";
 import { StyleTextConfig } from "./StyleTextConfig.js";
 
 export const PanelOptionsGeomapLayerConfigStyle = defineGrafanaItemClass('PanelOptionsGeomapLayerConfigStyle', GrafanaItem)
-    .defineGrafanaObject('color', StyleColor, { onDefault: (options) => new StyleColor(options) })
+    .defineObject('color', StyleColor, { onDefault: (options) => new StyleColor(options) })
     .defineValue('opacity', Number, { onDefault: (options) => 1 })
-    .defineGrafanaObject('rotation', StyleRotation, { onDefault: (options) => new StyleRotation(options) })
-    .defineGrafanaObject('size', StyleSize, { onDefault: (options) => new StyleSize(options) })
-    .defineGrafanaObject('symbol', StyleSymbol, { onDefault: (options) => new StyleSymbol(options) })
-    .defineGrafanaObject('symbolAlign', StyleSymbolAlign, { onDefault: (options) => new StyleSymbolAlign(options) })
-    .defineGrafanaObject('textConfig', StyleTextConfig, { onDefault: (options) => new StyleTextConfig(options) })
+    .defineObject('rotation', StyleRotation, { onDefault: (options) => new StyleRotation(options) })
+    .defineObject('size', StyleSize, { onDefault: (options) => new StyleSize(options) })
+    .defineObject('symbol', StyleSymbol, { onDefault: (options) => new StyleSymbol(options) })
+    .defineObject('symbolAlign', StyleSymbolAlign, { onDefault: (options) => new StyleSymbolAlign(options) })
+    .defineObject('textConfig', StyleTextConfig, { onDefault: (options) => new StyleTextConfig(options) })
     .asClass

@@ -2,8 +2,8 @@ import { Target } from "./Target.js";
 import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const TargetInfinity = defineGrafanaItemClass('TargetInfinity', Target)
-    .defineObject('columns', Object)
-    .defineObject('computed_columns', Object, { name: 'computedColumns' })
+    .defineBasicObject('columns', Object)
+    .defineBasicObject('computed_columns', Object, { name: 'computedColumns' })
     .defineValue('format', String)
     .defineValue('parser', String)
     .defineValue('source', String)

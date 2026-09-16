@@ -10,7 +10,7 @@ export const PanelOptionsBarChart = defineGrafanaItemClass('PanelOptionsBarChart
     .defineValue('colorByField', String)
     .defineValue('fullHighlight', Boolean)
     .defineValue('groupWidth', Number)
-    .defineGrafanaObject('legend', VizLegendOptions, {
+    .defineObject('legend', VizLegendOptions, {
         onDefault: (options) => new VizLegendOptions(options)
             .setDisplayMode('list')
             .setPlacement('bottom')
@@ -19,8 +19,8 @@ export const PanelOptionsBarChart = defineGrafanaItemClass('PanelOptionsBarChart
     .defineValue('orientation', String)
     .defineValue('showValue', String)
     .defineValue('stacking', String)
-    .defineGrafanaObject('text', VizTextDisplayOptions)
-    .defineGrafanaObject('tooltip', VizTooltipOptions, {
+    .defineObject('text', VizTextDisplayOptions)
+    .defineObject('tooltip', VizTooltipOptions, {
         onDefault: (options) => new VizTooltipOptions(options)
             .setHideZeros(false)
             .setMode('single')

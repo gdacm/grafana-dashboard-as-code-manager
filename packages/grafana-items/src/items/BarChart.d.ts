@@ -11,5 +11,5 @@ export declare class BarChart extends Panel {
     setNewOptions(onNewCreated: ((item: PanelOptionsBarChart) => PanelOptionsBarChart) | undefined): this;
     withOptions(onWith: (item: PanelOptionsBarChart) => void): this;
     get options(): PanelOptionsBarChart;
-    setThresholdsStyleArea(): this
+    setThresholdsStyleMode(mode: string): this
 }
