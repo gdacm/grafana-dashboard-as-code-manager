@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { PanelOptionsGeomapLayerConfig } from "./PanelOptionsGeomapLayerConfig.js";
 import { PanelOptionsGeomapLayerLocation } from "./PanelOptionsGeomapLayerLocation.js";
 

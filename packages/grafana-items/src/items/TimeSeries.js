@@ -1,5 +1,5 @@
 import { Panel } from "./Panel.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { PanelOptionsTimeSeries } from "./PanelOptionsTimeSeries.js";
 import { FieldConfigCustomTimeSerie } from "./FieldConfigCustomTimeSerie.js";
 import { definePanel } from "./properties/panel.js";

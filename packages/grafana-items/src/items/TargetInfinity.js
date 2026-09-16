@@ -1,5 +1,5 @@
 import { Target } from "./Target.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const TargetInfinity = defineGrafanaItemClass('TargetInfinity', Target)
     .defineObject('columns', Object)

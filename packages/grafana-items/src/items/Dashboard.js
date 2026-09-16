@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { TimeRange } from "./TimeRange.js";
 import { Panel } from "./Panel.js";
 import { Templating } from "./Templating.js";

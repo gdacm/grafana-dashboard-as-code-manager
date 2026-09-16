@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { Annotation } from "./Annotation.js";
 
 export const Annotations = defineGrafanaItemClass('Annotations', GrafanaItem)

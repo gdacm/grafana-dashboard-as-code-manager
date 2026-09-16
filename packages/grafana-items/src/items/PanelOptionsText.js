@@ -1,5 +1,5 @@
 import { PanelOptions } from "./PanelOptions.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { PanelOptionsTextCode } from "./PanelOptionsTextCode.js";
 
 export const PanelOptionsText = defineGrafanaItemClass('PanelOptionsText', PanelOptions)

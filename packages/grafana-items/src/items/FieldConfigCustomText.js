@@ -1,5 +1,5 @@
 import { FieldConfigCustom } from "./FieldConfigCustom.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const FieldConfigCustomText = defineGrafanaItemClass('FieldConfigCustomText', FieldConfigCustom)
     // .defineValue('foo1', String)

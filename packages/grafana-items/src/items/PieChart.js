@@ -1,5 +1,5 @@
 import { Panel } from "./Panel.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { definePanel } from "./properties/panel.js";
 import { FieldConfigCustomPieChart } from "./FieldConfigCustomPieChart.js";
 import { PanelOptionsPieChart } from "./PanelOptionsPieChart.js";

@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const HideFrom = defineGrafanaItemClass('HideFrom', GrafanaItem)
     .defineValue('graph', Boolean) // Grafana 13

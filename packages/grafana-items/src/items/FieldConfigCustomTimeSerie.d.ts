@@ -18,6 +18,7 @@ export declare class FieldConfigCustomTimeSerie extends FieldConfigCustom {
     setAxisSoftMin(axisSoftMin: Number): this;
     setAxisWidth(axisWidth: Number): this;
     setScaleDistribution(scaleDistribution: ScaleDistribution): this;
+    setNewScaleDistribution(onNewCreated: ((item: ScaleDistribution) => ScaleDistribution) | undefined): this;
     withScaleDistribution(onWith: (item: ScaleDistribution) => void): this;
     get scaleDistribution(): ScaleDistribution;
     setBarAlignment(barAlignment: Number): this;

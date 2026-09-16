@@ -8,7 +8,6 @@ export declare class OverrideMatcherOptionsByNames extends GrafanaItem {
     initNames(): this;
     get names(): String[];
     addName(name: String): this;
-    addNewName(onNewCreated: (item: String) => String): this;
     withNames(onWith: (names: String[]) => void): this;
     setPrefix(prefix: String): this;
     setReadOnly(readOnly: Boolean): this;

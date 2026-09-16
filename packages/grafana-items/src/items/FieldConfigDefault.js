@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { Color } from "./Color.js";
 import { FieldConfigCustom } from "./FieldConfigCustom.js";
 import { Mapping } from "./Mapping.js";

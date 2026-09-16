@@ -1,6 +1,6 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const FieldConfigCustomTableFooter = defineGrafanaItemClass('FieldConfigCustomTableFooter', GrafanaItem)
-    .defineArray('reducers', String)
+    .defineBasicArray('reducers', String)
     .asClass

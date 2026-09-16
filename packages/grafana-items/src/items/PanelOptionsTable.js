@@ -1,5 +1,5 @@
 import { PanelOptions } from "./PanelOptions.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { PanelOptionsTableSortBy } from "./PanelOptionsTableSortBy.js";
 
 export const PanelOptionsTable = defineGrafanaItemClass('PanelOptionsTable', PanelOptions)

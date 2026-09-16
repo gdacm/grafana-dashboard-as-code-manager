@@ -1,5 +1,5 @@
 import { FieldConfigCustom } from "./FieldConfigCustom.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { defineAxisConfig } from "./properties/axisConfig.js";
 import { defineHideableFieldConfig } from "./properties/hideableFieldConfig.js";
 import { LineStyle } from "./LineStyle.js";

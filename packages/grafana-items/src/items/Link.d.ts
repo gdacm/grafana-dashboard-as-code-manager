@@ -12,7 +12,6 @@ export declare class Link extends GrafanaItem {
     initTags(): this;
     get tags(): String[];
     addTag(tag: String): this;
-    addNewTag(onNewCreated: (item: String) => String): this;
     withTags(onWith: (tags: String[]) => void): this;
     setTargetBlank(targetBlank: Boolean): this;
     setTitle(title: String): this;

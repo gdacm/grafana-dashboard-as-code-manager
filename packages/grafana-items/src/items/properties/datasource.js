@@ -1,5 +1,5 @@
 import { Datasource } from "../Datasource.js";
-import { GrafanaItemClassBuilder } from "../../utils/typesDefinition.js";
+import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js";
 
 /**
  * @param {GrafanaItemClassBuilder} builder

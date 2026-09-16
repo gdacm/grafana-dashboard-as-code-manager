@@ -1,5 +1,5 @@
 import { FieldConfigCustom } from "./FieldConfigCustom.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { HideFrom } from "./HideFrom.js";
 
 export const FieldConfigCustomGeomap = defineGrafanaItemClass('FieldConfigCustomGeomap', FieldConfigCustom)

@@ -8,7 +8,6 @@ export declare class VizLegendOptions extends GrafanaItem {
     initCalcs(): this;
     get calcs(): String[];
     addCalc(calc: String): this;
-    addNewCalc(onNewCreated: (item: String) => String): this;
     withCalcs(onWith: (calcs: String[]) => void): this;
     setDisplayMode(displayMode: String): this;
     setIsVisible(isVisible: Boolean): this;

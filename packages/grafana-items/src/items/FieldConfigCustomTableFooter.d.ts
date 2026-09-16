@@ -7,6 +7,5 @@ export declare class FieldConfigCustomTableFooter extends GrafanaItem {
     initReducers(): this;
     get reducers(): String[];
     addReducer(reducer: String): this;
-    addNewReducer(onNewCreated: (item: String) => String): this;
     withReducers(onWith: (reducers: String[]) => void): this;
 }

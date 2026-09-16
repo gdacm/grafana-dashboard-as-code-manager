@@ -1,7 +1,7 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 
 export const TimePicker = defineGrafanaItemClass('TimePicker', GrafanaItem)
-    .defineArray('refresh_intervals', String, { itemName: 'refreshInterval' })
+    .defineBasicArray('refresh_intervals', String, { itemName: 'refreshInterval' })
     .asClass

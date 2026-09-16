@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const Link = defineGrafanaItemClass('Link', GrafanaItem)
     .defineConstructor(instance => instance.setType('link'))
@@ -7,7 +7,7 @@ export const Link = defineGrafanaItemClass('Link', GrafanaItem)
     .defineValue('icon', String)
     .defineValue('includeVars', Boolean)
     .defineValue('keepTime', Boolean)
-    .defineArray('tags', String, { setEmpty: true })
+    .defineBasicArray('tags', String, { setEmpty: true })
     .defineValue('targetBlank', Boolean)
     .defineValue('title', String)
     .defineValue('tooltip', String)

@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { StyleColor } from "./StyleColor.js";
 import { StyleRotation } from "./StyleRotation.js";
 import { StyleSize } from "./StyleSize.js";

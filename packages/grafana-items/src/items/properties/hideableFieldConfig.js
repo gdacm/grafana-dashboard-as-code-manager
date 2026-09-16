@@ -1,4 +1,4 @@
-import { GrafanaItemClassBuilder } from "../../utils/typesDefinition.js";
+import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js";
 import { HideFrom } from "../HideFrom.js";
 
 /**

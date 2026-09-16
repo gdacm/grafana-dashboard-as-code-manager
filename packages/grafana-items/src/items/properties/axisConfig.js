@@ -1,4 +1,4 @@
-import { GrafanaItemClassBuilder } from "../../utils/typesDefinition.js";
+import { GrafanaItemClassBuilder } from "../../utils/GrafanaItemClassBuilder.js";
 import { ScaleDistribution } from "../ScaleDistribution.js";
 /**
  * @param {GrafanaItemClassBuilder} builder
@@ -14,7 +14,7 @@ export const defineAxisConfig = (builder) => {
         .defineValue('axisSoftMax', Number)
         .defineValue('axisSoftMin', Number)
         .defineValue('axisWidth', Number)
-        .defineObject('scaleDistribution', ScaleDistribution, {
+        .defineGrafanaObject('scaleDistribution', ScaleDistribution, {
             onDefault: (options) => new ScaleDistribution(options).setType('linear'),
         })
 }

@@ -8,7 +8,6 @@ export declare class PanelOptionsPieChart extends PanelOptions {
     initDisplayLabels(): this;
     get displayLabels(): String[];
     addDisplayLabel(displayLabel: String): this;
-    addNewDisplayLabel(onNewCreated: (item: String) => String): this;
     withDisplayLabels(onWith: (displayLabels: String[]) => void): this;
     setLegend(legend: PieChartLegendOptions): this;
     setNewLegend(onNewCreated: ((item: PieChartLegendOptions) => PieChartLegendOptions) | undefined): this;

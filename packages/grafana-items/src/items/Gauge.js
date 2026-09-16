@@ -1,5 +1,5 @@
 import { Panel } from "./Panel.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { PanelOptionsGauge } from "./PanelOptionsGauge.js";
 import { definePanel } from "./properties/panel.js";
 import { FieldConfigCustomGauge } from "./FieldConfigCustomGauge.js";

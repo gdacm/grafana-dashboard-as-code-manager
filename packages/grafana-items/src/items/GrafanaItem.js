@@ -1,5 +1,5 @@
 import { asJson } from "../utils/json.js";
-import { defineClass } from "../utils/typesDefinition.js";
+import { defineClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export class GrafanaItem {
     /**

@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const PanelOptionsGeomapBasemap = defineGrafanaItemClass('PanelOptionsGeomapBasemap', GrafanaItem)
     .defineObject('config', Object)

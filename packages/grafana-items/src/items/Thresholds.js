@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { ThresholdsStep } from './ThresholdsStep.js';
 
 export const Thresholds = defineGrafanaItemClass('Thresholds', GrafanaItem)

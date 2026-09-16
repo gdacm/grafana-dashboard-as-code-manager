@@ -1,5 +1,5 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { FieldConfigDefault } from "./FieldConfigDefault.js";
 import { FieldConfigOverride } from "./FieldConfigOverride.js";
 import { OverrideMatcherOptionsByNames } from "./OverrideMatcherOptionsByNames.js";

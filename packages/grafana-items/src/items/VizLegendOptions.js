@@ -1,9 +1,9 @@
 import { GrafanaItem } from "./GrafanaItem.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 
 export const VizLegendOptions = defineGrafanaItemClass('VizLegendOptions', GrafanaItem)
     .defineValue('asTable', Boolean)
-    .defineArray('calcs', String)
+    .defineBasicArray('calcs', String)
     .defineValue('displayMode', String)
     .defineValue('isVisible', Boolean)
     .defineValue('limit', Number)

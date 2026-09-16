@@ -1,5 +1,5 @@
 import { Panel } from "./Panel.js";
-import { defineGrafanaItemClass } from "../utils/typesDefinition.js";
+import { defineGrafanaItemClass } from "../utils/GrafanaItemClassBuilder.js";
 import { FieldConfigCustomStat } from "./FieldConfigCustomStat.js";
 import { PanelOptionsStat } from "./PanelOptionsStat.js";
 import { definePanel } from "./properties/panel.js";
