@@ -1,5 +1,5 @@
 import { GrafanaItem } from "../items/GrafanaItem.js";
-import { defineValue, defineObject, defineGrafanaObject, defineArray, defineBasicArray, defineMemberInternal, defineConstructor, hasType, setTypeMetaClassInfo, getMetaClassInfo } from "./typesDefinition.js";
+import { defineValue, defineObject, defineGrafanaObject, defineArray, defineBasicArray, defineConstructor, hasType, setTypeMetaClassInfo, getMetaClassInfo, defineMember, defineMethod, defineGetterSetter } from "./typesDefinition.js";
 
 /**
  * @typedef {import("@gdacm/base-types").GenericMetaOptions} GenericMetaOptions
@@ -133,7 +133,7 @@ export class GrafanaItemClassBuilder {
      * @return {this}
      */
     defineMember(method, option) {
-        defineMemberInternal(this.cls, method, option);
+        defineMember(this.cls, method, option);
         return this;
     }
 
@@ -155,7 +155,7 @@ export class GrafanaItemClassBuilder {
      * @return {this}
      */
     defineMethod(name, args, option) {
-        defineMemberInternal(this.cls, `${name}${args}`, { ...option, name });
+        defineMethod(this.cls, name, args, option)
         return this;
     }
 
@@ -169,9 +169,7 @@ export class GrafanaItemClassBuilder {
      * @return {this}
      */
     defineGetterSetter(name, type, option) {
-        const getter = (option.getter);
-        const setter = (option.setter);
-        defineMemberInternal(this.cls, undefined, { ...option, getter, setter, name, getterSetterType: type });
+        defineGetterSetter(this.cls, name, type, option);
         return this;
     }
 

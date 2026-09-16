@@ -122,6 +122,31 @@ function setGetterAndSetter(cls, name, getter, setter) {
 
 /**
  * @template {GrafanaItem} C
+ * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
+ * @param {string} typeName
+ */
+const addTypeNameToInclude = (metaClassInfo, typeName) => {
+    if (metaClassInfo.typeNamesToInclude.includes(typeName) === false) {
+        if (['String', 'Number', 'Boolean', 'Array', 'Object'].indexOf(typeName) === -1) {
+            metaClassInfo.typeNamesToInclude.push(typeName);
+        }
+    }
+};
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaClassInfo<GrafanaItem,C>} metaClassInfo
+ * @param {(typeof GrafanaItem)[]} [typesToInclude]
+ */
+const addTypesToInclude = (metaClassInfo, typesToInclude) => {
+    if (typesToInclude !== undefined) {
+        for (const type of typesToInclude) {
+            addTypeNameToInclude(metaClassInfo, type.name);
+        }
+    }
+}
+/**
+ * @template {GrafanaItem} C
  * @param {MetaConstructor<C>} cls 
  * @param {string} key 
  * @param {Function} type
@@ -136,11 +161,7 @@ export function defineValue(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
-    if (metaClassInfo.typeNamesToInclude.includes(type.name) === false) {
-        if (['String', 'Number', 'Boolean', 'Array', 'Object'].indexOf(type.name) === -1) {
-            metaClassInfo.typeNamesToInclude.push(type.name);
-        }
-    }
+    addTypeNameToInclude(metaClassInfo, type.name);
     const setName = `set${caseName}`;
 
     if (!hasPrototype(cls, setName)) {
@@ -185,11 +206,7 @@ export function defineObject(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
-    if (metaClassInfo.typeNamesToInclude.includes(type.name) === false) {
-        if (['String', 'Number', 'Boolean', 'Array', 'Object'].indexOf(type.name) === -1) {
-            metaClassInfo.typeNamesToInclude.push(type.name);
-        }
-    }
+    addTypeNameToInclude(metaClassInfo, type.name);
 
     const setName = `set${caseName}`;
     if (hasPrototype(cls, setName) === false) {
@@ -262,11 +279,7 @@ export function defineGrafanaObject(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const typeName = option?.typeName ? option.typeName : type.name;
-    if (metaClassInfo.typeNamesToInclude.includes(type.name) === false) {
-        if (['String', 'Number', 'Boolean', 'Array', 'Object'].indexOf(type.name) === -1) {
-            metaClassInfo.typeNamesToInclude.push(type.name);
-        }
-    }
+    addTypeNameToInclude(metaClassInfo, type.name);
 
     const setName = `set${caseName}`;
     if (hasPrototype(cls, setName) === false) {
@@ -357,11 +370,7 @@ export function defineArray(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
-    if (metaClassInfo.typeNamesToInclude.includes(type.name) === false) {
-        if (type.name !== 'String' && type.name !== 'Number' && type.name !== 'Boolean') {
-            metaClassInfo.typeNamesToInclude.push(type.name);
-        }
-    }
+    addTypeNameToInclude(metaClassInfo, type.name);
     const caseItemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
 
     const initName = `init${caseName}`;
@@ -440,7 +449,7 @@ export function defineArray(cls, key, type, option) {
         metaClassInfo.onInits.push(
             (instance) => option.onDefault
                 ?.(instance.metaOptions)
-                ?.forEach( 
+                ?.forEach(
                     item => instance._addArrayItem(key, item)
                 )
         );
@@ -473,11 +482,7 @@ export function defineBasicArray(cls, key, type, option) {
     const name = option?.name ? option.name : key;
     const caseName = name.charAt(0).toUpperCase() + name.slice(1);
     const itemName = option?.itemName ? option.itemName : (name.endsWith('s') ? name.slice(0, -1) : `${name}Item`);
-    if (metaClassInfo.typeNamesToInclude.includes(type.name) === false) {
-        if (type.name !== 'String' && type.name !== 'Number' && type.name !== 'Boolean') {
-            metaClassInfo.typeNamesToInclude.push(type.name);
-        }
-    }
+    addTypeNameToInclude(metaClassInfo, type.name);
     const caseItemName = itemName.charAt(0).toUpperCase() + itemName.slice(1);
 
     const initName = `init${caseName}`;
@@ -541,7 +546,7 @@ export function defineBasicArray(cls, key, type, option) {
         metaClassInfo.onInits.push(
             (instance) => option.onDefault
                 ?.(instance.metaOptions)
-                ?.forEach( 
+                ?.forEach(
                     item => instance._addArrayItem(key, item)
                 )
         );
@@ -560,115 +565,109 @@ export function defineBasicArray(cls, key, type, option) {
 /**
  * @template {GrafanaItem} C
  * @param {MetaConstructor<C>} cls 
- * @param {string|undefined} method
+ * @param {(instance: C) => void} code
+ */
+export function defineConstructor(cls, code) {
+    const constr = code;
+
+    const metaClassInfo = types.get(cls);
+    metaClassInfo.methods.push('constructor(metaOptions: GenericMetaOptions)');
+    metaClassInfo.onInits.push((instance) => constr(instance));
+}
+
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls 
+ * @param {string} method
  * @param {Object} [option]
  * @param {(typeof GrafanaItem)[]} [option.typesToInclude]
- * @param {string} [option.name]
- * @param {(instance: C, ...args: any[]) => any} [option.code]
- * @param {(instance: C) => void} [option.constr]
- * @param {string} [option.getterSetterType]
- * @param {(self: C) => any} [option.getter]
- * @param {(self: C, value: any) => void} [option.setter]
  */
-export function defineMemberInternal(cls, method, option) {
+export function defineMember(cls, method, option) {
+    const { typesToInclude } = option || {};
+    const metaClassInfo = types.get(cls);
+    metaClassInfo.methods.push(method);
+    addTypesToInclude(metaClassInfo, typesToInclude);
+}
+
+
+/**
+ * @template {GrafanaItem} C
+ * @param {MetaConstructor<C>} cls 
+ * @param {string} name
+ * @param {string} args
+ * @param {Object} option
+ * @param {(typeof GrafanaItem)[]} [option.typesToInclude]
+ * @param {(instance: C, ...args: any[]) => any} option.code
+ */
+export const defineMethod = (cls, name, args, option) => {
     const {
         typesToInclude,
-        name,
         code,
-        constr,
-        getterSetterType,
-        getter,
-        setter,
     } = option || {};
+
     const metaClassInfo = types.get(cls);
-    if (method !== undefined) {
-        metaClassInfo.methods.push(method);
-    }
-    if (typesToInclude !== undefined) {
-        for (const type of typesToInclude) {
-            if (metaClassInfo.typeNamesToInclude.includes(type.name) === false) {
-                metaClassInfo.typeNamesToInclude.push(type.name);
-            }
-        }
-    }
-    let codeCount = 0;
+    metaClassInfo.methods.push(`${name}${args}`);
+    addTypesToInclude(metaClassInfo, typesToInclude);
+
     if (code !== undefined) {
-        codeCount++
-    }
-    if (constr !== undefined) {
-        codeCount++
-    }
-    if (getter !== undefined || setter !== undefined) {
-        codeCount++
-    }
-    if (codeCount > 1) {
-        throw new Error(`You can only provide either code or constructor or getter/setter, not all. (codeCount:${codeCount})`);
-    }
-    if (code !== undefined && name === undefined) {
-        throw new Error("You must provide a name when providing code.");
-    }
-    if (constr !== undefined && name !== undefined) {
-        throw new Error("You cannot provide a name when providing constructor.");
-    }
-    if ((getter !== undefined || setter !== undefined) && name === undefined) {
-        throw new Error("You must provide a name when providing getter or setter.");
-    }
-    if (codeCount == 1) {
-        if (code !== undefined) {
-            if (!name) {
-                throw new Error("You must provide a name when providing code.");
+        if (!name) {
+            throw new Error("You must provide a name when providing code.");
+        }
+
+        setPrototype(cls, name,
+            /**
+             * @this {C}
+             * @param  {...any} args
+             * @returns {any}
+             */
+            function (...args) {
+                return code(this, ...args);
             }
-
-            setPrototype(cls, name,
-                /**
-                 * @this {C}
-                 * @param  {...any} args
-                 * @returns {any}
-                 */
-                function (...args) {
-                    return code(this, ...args);
-                }
-            )
-        }
-
-        if (constr !== undefined) {
-            metaClassInfo.onInits.push((instance) => constr(instance));
-        }
-
-        if (getter !== undefined && setter === undefined) {
-            if (!name) {
-                throw new Error("You must provide a name when providing getter or setter.");
-            }
-            setGetter(cls, name, getter);
-            metaClassInfo.methods.push(`get ${name}(): ${getterSetterType};`)
-        }
-
-        if (getter === undefined && setter !== undefined) {
-            if (!name) {
-                throw new Error("You must provide a name when providing getter or setter.");
-            }
-            setSetter(cls, name, setter);
-            metaClassInfo.methods.push(`set ${name}(value: ${getterSetterType});`)
-        }
-
-        if (getter !== undefined && setter !== undefined) {
-            if (!name) {
-                throw new Error("You must provide a name when providing getter or setter.");
-            }
-            setGetterAndSetter(cls, name, getter, setter);
-            metaClassInfo.methods.push(`get ${name}(): ${getterSetterType};`)
-            metaClassInfo.methods.push(`set ${name}(value: ${getterSetterType});`)
-        }
+        )
     }
 }
 
 /**
  * @template {GrafanaItem} C
  * @param {MetaConstructor<C>} cls 
- * @param {(instance: C) => void} code
+ * @param {string} name
+ * @param {string} getterSetterType
+ * @param {Object} option
+ * @param {(typeof GrafanaItem)[]} [option.typesToInclude]
+ * @param {(self: C) => any} [option.getter]
+ * @param {(self: C, value: any) => void} [option.setter]
  */
-export function defineConstructor(cls, code) {
-    defineMemberInternal(cls, 'constructor(metaOptions: GenericMetaOptions)', { constr: code });
+export function defineGetterSetter(cls, name, getterSetterType, option) {
+    const {
+        typesToInclude,
+        getter,
+        setter,
+    } = option || {};
+    const metaClassInfo = types.get(cls);
+    addTypesToInclude(metaClassInfo, typesToInclude);
+
+    if (getter !== undefined) {
+        if (setter !== undefined) {
+            setGetterAndSetter(cls, name, getter, setter);
+        } else {
+            setGetter(cls, name, getter);
+        }
+    } else {
+        if (setter !== undefined) {
+            setSetter(cls, name, setter);
+        } else {
+            throw new Error("You must provide either a getter or a setter.");
+        }
+    }
+
+    if (getter !== undefined) {
+        metaClassInfo.methods.push(`get ${name}(): ${getterSetterType};`)
+    }
+
+    if (setter !== undefined) {
+        metaClassInfo.methods.push(`set ${name}(value: ${getterSetterType});`)
+    }
 }
 
 /**
