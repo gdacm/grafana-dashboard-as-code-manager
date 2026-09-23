@@ -2355,9 +2355,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"sample-ts-generic-items@workspace:examples/example-sample-ts -generic-items":
+"sample-ts-generic-items@workspace:examples/example-sample-ts-generic-items":
   version: 0.0.0-use.local
-  resolution: "sample-ts-generic-items@workspace:examples/example-sample-ts -generic-items"
+  resolution: "sample-ts-generic-items@workspace:examples/example-sample-ts-generic-items"
   dependencies:
     "@gdacm/core": "workspace:^"
     tsx: "npm:^4.23.12"
