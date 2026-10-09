@@ -19,6 +19,42 @@ class InfluxDb2QueryBuilder {
     }
 
     /**
+     * Execute code based on a condition. If the condition is true, execute the code block, otherwise execute the elseCode block if provided.
+     * 
+     * @param {boolean} condition The condition to evaluate
+     * @param {(item: this) => this} code The code to execute if the condition is true
+     * @param {(item: this) => this} [elseCode] The code to execute if the condition is false
+     * @example
+     * instance
+     *     .withCond(
+     *         someBoolean, 
+     *         (instance) => instance
+     *             .someFluentMethod()
+     *             .anotherFluentMethod()
+     * )
+     * @example
+     * instance
+     *     .withCond(
+     *         someBoolean, 
+     *         (instance) => instance
+     *             .someFluentMethod()
+     *             .anotherFluentMethod(),
+     *         (instance) => instance
+     *             .alternativeFluentMethod()
+     * )
+     * @returns {this} The current instance of the class
+     */
+    withCond(condition, code, elseCode) {
+        if (condition) {
+            return code(this);
+        } else if (elseCode) {
+            return elseCode(this);
+        }
+        return this;
+    }
+
+
+    /**
      * @param {string} bucket
      * @returns {InfluxDb2QueryBuilder}
      */
