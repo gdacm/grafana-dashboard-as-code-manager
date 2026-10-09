@@ -1,7 +1,7 @@
 {
   "name": "sample-js",
   "private": true,
-  "version": "0.1.25",
+  "version": "0.1.26",
   "main": "index.js",
   "author": "gissehel",
   "type": "module",
