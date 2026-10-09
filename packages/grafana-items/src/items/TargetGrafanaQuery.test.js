@@ -30,13 +30,27 @@ describe('TargetGrafanaQuery', () => {
             .setNoise(0.1)
             .setPath('test-path')
             .setQueryType('randomWalk')
-            .setSearch({ query: 'test-search' })
-            .setSearchNext({ query: 'test-search-next' })
+            .setSearch('test-search')
+            .setSearchNext('test-search-next')
             .setSeriesCount(5)
-            .setSnapshot([{ data: 'test-snapshot' }])
         
         expect(targetGrafanaQuery).toBeInstanceOf(TargetGrafanaQuery);
         expect(targetGrafanaQuery.asJson()).toEqual({
+            buffer: 1024,
+            channel: 'test-channel',
+            dropPercent: 0.5,
+            file: {
+                name: 'test-file-name',
+                size: 2048
+            },
+            max: 100,
+            min: 0,
+            noise: 0.1,
+            path: 'test-path',
+            queryType: 'randomWalk',
+            search: 'test-search',
+            searchNext: 'test-search-next',
+            seriesCount: 5
         });
     });
 });
