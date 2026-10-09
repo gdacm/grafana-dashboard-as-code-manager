@@ -5,6 +5,7 @@ export declare class GrafanaItem {
     get metaOptions(): GenericMetaOptions
     withMetaOptions(code: (metaOptions: GenericMetaOptions) => void): this
     with(code: (item: this) => void): this
+    withCond(condition: boolean, code: (item: this) => this, elseCode?: (item: this) => this): this
     asJson(): Object;
     _onInit(): void;
     _setValue<T>(key: string, value: T): this;
