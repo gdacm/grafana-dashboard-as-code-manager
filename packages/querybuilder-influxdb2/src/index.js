@@ -92,7 +92,7 @@ class InfluxDb2QueryBuilder {
     filterPropertyIsIn(propertyName, values, options) {
         return this.filter('r', values.map((value) => `r["${propertyName}"] == "${value}"`).join(' or '), options);
     }
-    
+
     /**
      * @param {String} propertyName
      * @param {String} set
@@ -189,6 +189,21 @@ class InfluxDb2QueryBuilder {
             return this;
         }
         this._parts.push(`derivative(unit: ${unit}, nonNegative: ${nonNegative})`);
+        return this;
+    }
+
+    /**
+     * @param {String} name
+     * @param {String} predicate
+     * @param {Object} [options]
+     * @param {Boolean} [options.activate]
+     * @returns {InfluxDb2QueryBuilder}
+     */
+    map(name, predicate, options) {
+        if (checkActivate(options) === false) {
+            return this;
+        }
+        this._parts.push(`map(fn: (${name}) => ${predicate})`);
         return this;
     }
 
